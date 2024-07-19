@@ -1,0 +1,42 @@
+---
+title: "Analysis of skink dataset"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Analysis of skink dataset}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(monitoR)
+pacman::p_load(conflicted, tidyverse)
+```
+
+# Data
+```{r}
+data(skink)
+```
+
+```{r}
+skink |> glimpse()
+```
+
+# Processing
+First we add a 4x4 grid
+
+```{r}
+grid <- create_grid(range(skink$X), range(skink$Y), dim = c(4,4))
+skink_grid <- skink |> add_grid(grid)
+```
+
+
+```{r}
+plot_grid(grid, skink_grid)
+```
