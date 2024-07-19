@@ -102,8 +102,125 @@
 <div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_grid.html">plot_grid</a></span><span class="op">(</span><span class="va">grid</span>, <span class="va">skink_grid</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
+<div id="fig-skink" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig"><div aria-describedby="fig-skink-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="skink_files/figure-html/fig-skink-1.png" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-skink-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 1: Skink dataset with grid
+</figcaption></figure>
+</div>
+</div>
+</div>
+</section><section class="section level2"><h2 id="index-measures">Index measures<a class="anchor" aria-label="anchor" href="#index-measures"></a>
+</h2>
+<section class="level2"><h3 id="entropy">Entropy<a class="anchor" aria-label="anchor" href="#entropy"></a>
+</h3>
+<p>First we look at the entropy of observation for the data given in <a href="#fig-skink" class="quarto-xref">Figure 1</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/calc_entropy.html">calc_entropy</a></span><span class="op">(</span><span class="va">skink_grid</span><span class="op">$</span><span class="va">grid</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.7944013</span></span></code></pre></div>
+</div>
+<p><strong>Q1: Is it evenly spread?</strong> We know that the entopy for evenly spread data over a 4x4 grid using <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mo>log</mo><mn>10</mn></msub><annotation encoding="application/x-tex">\log_{10}</annotation></semantics></math> is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mo>log</mo><mn>10</mn></msub><mrow><mo stretchy="true" form="prefix">(</mo><mn>16</mn><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+\log_{10}(16)
+</annotation></semantics></math></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log10</a></span><span class="op">(</span><span class="fl">16</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1.20412</span></span></code></pre></div>
+</div>
+<p>In our case, we have 0.7944013 which is smaller indicating non-even spread. We may wonder if this is significant?</p>
+<p>To test this, we will create a empirical null distribution based on simulating data with equal spread of grids</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">null_entropy</span> <span class="op">&lt;-</span> <span class="fu">monitoR</span><span class="fu">::</span><span class="fu"><a href="../reference/get_entropy_null.html">get_entropy_null</a></span><span class="op">(</span><span class="va">skink_grid</span><span class="op">$</span><span class="va">grid</span>, n_sims <span class="op">=</span> <span class="fl">1000</span>, n_grid <span class="op">=</span> <span class="fl">16</span><span class="op">)</span></span></code></pre></div>
+</div>
+<p>If we look at the 95% percentiles</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">null_entropy</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.025</span>, <span class="fl">0.975</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;     2.5%    97.5% </span></span>
+<span><span class="co">#&gt; 1.203244 1.203906</span></span></code></pre></div>
+</div>
+<p>we see that it does not contain the observed value, so the observations are not evenly spread.</p>
+<p><strong>Entropy and behaviour</strong></p>
+<p>Next, we will calculate the entropy for each behaviour (<a href="#fig-BE" class="quarto-xref">Figure 2</a>). In this we see a difference in entropy for different behaviours. For example, the most evenly spread is movement, while foraging is the least spread.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">skink_grid</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">summarise</span><span class="op">(</span>entropy <span class="op">=</span> <span class="fu"><a href="../reference/calc_entropy.html">calc_entropy</a></span><span class="op">(</span><span class="va">grid</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">behaviour</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span></span>
+<span>    behaviour <span class="op">=</span> <span class="fu">fct_reorder</span><span class="op">(</span><span class="va">behaviour</span>, <span class="va">entropy</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">entropy</span>, <span class="va">behaviour</span>, fill <span class="op">=</span> <span class="va">behaviour</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">geom_col</span><span class="op">(</span>show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">harrypotter</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/harrypotter/man/scale_hp.html" class="external-link">scale_fill_hp_d</a></span><span class="op">(</span><span class="st">"Ravenclaw"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Entropy"</span>, y <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div id="fig-BE" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig"><div aria-describedby="fig-BE-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="skink_files/figure-html/fig-BE-1.png" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-BE-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 2: Entropy for each behaviour
+</figcaption></figure>
+</div>
+</div>
+</div>
+<p>To assess the difference between the entropy for the different behaviours, we will used the squared distance of each entropy from the overall entropy</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mi>S</mi><mi>S</mi><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>k</mi></munderover><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>E</mi><mi>i</mi></msub><mo>−</mo><msub><mi>E</mi><mo>•</mo></msub><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup><mo>,</mo></mrow><annotation encoding="application/x-tex">
+ESS = \sum^k_{i = 1} (E_i - E_{\bullet})^2,
+</annotation></semantics></math></p>
+<p>where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>E</mi><mi>i</mi></msub><annotation encoding="application/x-tex">E_i</annotation></semantics></math> is the entropy for the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>th behaviour, and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>E</mi><mo>•</mo></msub><annotation encoding="application/x-tex">E_{\bullet}</annotation></semantics></math> is the entropy for all observations.</p>
+<p>For <a href="#fig-BE" class="quarto-xref">Figure 2</a>, we have</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/get_ess.html">get_ess</a></span><span class="op">(</span><span class="va">skink_grid</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.4849358</span></span></code></pre></div>
+</div>
+<p>As before, the question is</p>
+<blockquote>
+<p>Is this significant?</p>
+</blockquote>
+<p>To access this, we will use a permutation test, so we will</p>
+<ul>
+<li>Permute the grid recorded in the data</li>
+<li>Calculate ESS each time</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ess_null</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_ess_null.html">get_ess_null</a></span><span class="op">(</span><span class="va">skink_grid</span>, n_sims <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">ess_null</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.025</span>, <span class="fl">0.975</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;      2.5%     97.5% </span></span>
+<span><span class="co">#&gt; 0.1648775 0.8110867</span></span></code></pre></div>
+</div>
+<p>So this time we find that the observed ESS is within the 95% empirical confidence interval and so is not surprising.</p>
+</section></section><section class="section level2"><h2 id="neighbourhoods">Neighbourhoods<a class="anchor" aria-label="anchor" href="#neighbourhoods"></a>
+</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_neigh.html">plot_neigh</a></span><span class="op">(</span><span class="va">grid</span>, <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
 <div>
-<figure><p><img src="skink_files/figure-html/unnamed-chunk-5-1.png" width="672"></p>
+<figure><p><img src="skink_files/figure-html/unnamed-chunk-13-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_neigh.html">plot_neigh</a></span><span class="op">(</span><span class="va">grid</span>, <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="skink_files/figure-html/unnamed-chunk-13-2.png" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_neigh.html">plot_neigh</a></span><span class="op">(</span><span class="va">grid</span>, <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
+<div class="cell-output-display">
+<div>
+<figure><p><img src="skink_files/figure-html/unnamed-chunk-13-3.png" width="672"></p>
 </figure>
 </div>
 </div>

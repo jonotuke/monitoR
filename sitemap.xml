@@ -12,12 +12,17 @@
 <url><loc>https://jonotuke.github.io/monitoR/reference/calc_entropy.html</loc></url>
 <url><loc>https://jonotuke.github.io/monitoR/reference/calc_spi.html</loc></url>
 <url><loc>https://jonotuke.github.io/monitoR/reference/create_grid.html</loc></url>
+<url><loc>https://jonotuke.github.io/monitoR/reference/get_entropy_null.html</loc></url>
+<url><loc>https://jonotuke.github.io/monitoR/reference/get_ess.html</loc></url>
+<url><loc>https://jonotuke.github.io/monitoR/reference/get_ess_null.html</loc></url>
 <url><loc>https://jonotuke.github.io/monitoR/reference/get_measure_summary.html</loc></url>
+<url><loc>https://jonotuke.github.io/monitoR/reference/get_neigh.html</loc></url>
 <url><loc>https://jonotuke.github.io/monitoR/reference/grid.html</loc></url>
 <url><loc>https://jonotuke.github.io/monitoR/reference/index.html</loc></url>
 <url><loc>https://jonotuke.github.io/monitoR/reference/plot_ei.html</loc></url>
 <url><loc>https://jonotuke.github.io/monitoR/reference/plot_entropy.html</loc></url>
 <url><loc>https://jonotuke.github.io/monitoR/reference/plot_grid.html</loc></url>
+<url><loc>https://jonotuke.github.io/monitoR/reference/plot_neigh.html</loc></url>
 <url><loc>https://jonotuke.github.io/monitoR/reference/plot_spi.html</loc></url>
 <url><loc>https://jonotuke.github.io/monitoR/reference/plot_summary.html</loc></url>
 <url><loc>https://jonotuke.github.io/monitoR/reference/read_zoo.html</loc></url>
