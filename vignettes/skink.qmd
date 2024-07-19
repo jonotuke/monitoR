@@ -38,5 +38,103 @@ skink_grid <- skink |> add_grid(grid)
 
 
 ```{r}
+#| fig-cap: Skink dataset with grid
+#| label: fig-skink
 plot_grid(grid, skink_grid)
+```
+
+# Index measures
+
+## Entropy
+First we look at the entropy of observation for the data given in @fig-skink. 
+
+```{r}
+calc_entropy(skink_grid$grid)
+```
+
+**Q1: Is it evenly spread?**
+We know that the entopy for evenly spread data over a 4x4 grid using $\log_{10}$ is
+
+$$
+\log_{10}(16)
+$$
+
+
+```{r}
+log10(16)
+```
+
+In our case, we have `r calc_entropy(skink_grid$grid)` which is smaller indicating non-even spread. We may wonder if this is significant? 
+
+To test this, we will create a empirical null distribution based on simulating data with equal spread of grids
+
+
+```{r}
+null_entropy <- monitoR::get_entropy_null(skink_grid$grid, n_sims = 1000, n_grid = 16)
+```
+
+If we look at the 95% percentiles
+
+```{r}
+quantile(null_entropy, c(0.025, 0.975))
+```
+
+we see that it does not contain the observed value, so the observations are not evenly spread. 
+
+**Entropy and behaviour**
+
+Next, we will calculate the entropy for each behaviour (@fig-BE). In this we see a difference in entropy for different behaviours. For example, the most evenly spread is movement, while foraging is the least spread. 
+
+```{r}
+#| fig-cap: Entropy for each behaviour
+#| label: fig-BE
+skink_grid |> 
+  summarise(entropy = calc_entropy(grid), .by = behaviour) |> 
+  mutate(
+    behaviour = fct_reorder(behaviour, entropy)
+  ) |> 
+  ggplot(aes(entropy, behaviour, fill = behaviour)) + 
+  geom_col(show.legend = FALSE) + 
+  harrypotter::scale_fill_hp_d("Ravenclaw") + 
+  labs(x = "Entropy", y = NULL)
+```
+
+
+To assess the difference between the entropy for the different behaviours, we will used the squared distance of each entropy from the overall entropy
+
+$$
+ESS = \sum^k_{i = 1} (E_i - E_{\bullet})^2, 
+$$
+
+where $E_i$ is the entropy for the $i$th behaviour, and $E_{\bullet}$ is the entropy for all observations. 
+
+For @fig-BE, we have
+
+```{r}
+get_ess(skink_grid)
+```
+
+As before, the question is 
+
+> Is this significant?
+
+To access this, we will use a permutation test, so we will
+
+- Permute the grid recorded in the data
+- Calculate ESS each time
+
+```{r}
+ess_null <- get_ess_null(skink_grid, n_sims = 100)
+quantile(ess_null, c(0.025, 0.975))
+```
+
+So this time we find that the observed ESS is within the 95% empirical confidence interval and so is not surprising. 
+
+# Neighbourhoods
+
+
+```{r}
+plot_neigh(grid, 1)
+plot_neigh(grid, 2)
+plot_neigh(grid, 10)
 ```
