@@ -17,12 +17,12 @@ utils::globalVariables(
 #' plot_ei(grid, skink_grid)
 plot_ei <- function(grid, zoo_grid) {
   n_behaviours <- length(unique(zoo_grid$behaviour))
-  overall_ei <- get_measure_summary(grid, zoo_grid) |> calc_ei()
+  overall_ei <- get_zone_object(grid, zoo_grid) |> calc_ei()
   zoo_grid <- zoo_grid |>
   dplyr::group_by(behaviour) |>
   tidyr::nest() |>
   dplyr::mutate(
-    ei = purrr::map(data, \(x) get_measure_summary(grid, x) |> calc_ei())
+    ei = purrr::map(data, \(x) get_zone_object(grid, x) |> calc_ei())
   ) |>
   tidyr::unnest(ei)
   

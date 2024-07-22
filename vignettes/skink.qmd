@@ -16,7 +16,8 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(monitoR)
-pacman::p_load(conflicted, tidyverse)
+pacman::p_load(conflicted, tidyverse, gt)
+theme_set(theme_bw())
 ```
 
 # Data
@@ -130,11 +131,66 @@ quantile(ess_null, c(0.025, 0.975))
 
 So this time we find that the observed ESS is within the 95% empirical confidence interval and so is not surprising. 
 
-# Neighbourhoods
+# Environment effects
+So, we will now focus on Basking (@fig-basking). We will assume for illustration that there are rocks in Grid 5, 6, 7, 8, 2, and 3. 
+
+We want to ask the question of
+
+> Is it more likely to bask where there are rocks?
+
+```{r}
+skink_bask <- skink_grid |> 
+  filter(behaviour == "Basking")
+```
+
+```{r}
+#| fig-cap: Observations where just basking
+#| label: fig-basking
+plot_grid(grid, skink_bask)
+```
+
+@tbl-bask gives the number of times that the skink is seen basking in each grid. As well, we have given the type of environment. 
+
+```{r}
+#| tbl-cap: Count of number of basking events for each grid. 
+#| label: tbl-bask
+basking_df <- count_grid_behaviour(grid = grid, skink_bask) 
+basking_df <- basking_df |> 
+  mutate(
+    environ = "normal"
+  )
+basking_df$environ[c(2, 3, 5, 6, 7, 8)] <- "rocks"
+basking_df |> gt()
+```
+
+We can fit a linear model of number of observations on environ, but we would also like to take into account the spatial dependency, that is, you will might be more likely to bask in grid next to one another. @fig-neigh show the neighbourhood of a corner grid, edge grid and a middle grid. 
 
 
 ```{r}
+#| fig-cap: Neighbourhoods. 
+#| label: fig-neigh 
+#| layout-ncol: 3
 plot_neigh(grid, 1)
 plot_neigh(grid, 2)
 plot_neigh(grid, 10)
 ```
+
+First we add the neigh mean. 
+```{r}
+M <- get_neigh_mat(grid)
+basking_df$neigh <- as.numeric(M %*% basking_df$obs)
+basking_df
+```
+
+And then fit some models
+
+```{r}
+M1 <- lm(obs ~ environ * neigh, data = basking_df)
+summary(M1)
+M2 <- update(M1, .~. - environ:neigh)
+summary(M2)
+M3 <- update(M2, .~. - neigh)
+summary(M3)
+```
+
+So it looks like there is no dependency. 

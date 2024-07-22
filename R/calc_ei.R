@@ -3,29 +3,28 @@ utils::globalVariables(
 )
 #' calc ei
 #'
-#' @param df tibble with columns zone, obs and n of grid for zone
+#' @param zone_obj a zone object
 #'
 #' @return tibble with calculation and ei
 #' @export
 #'
 #' @examples
-#' df1 <- tibble::tibble(
+#' zo1 <- tibble::tibble(
 #'   zone = 1:2,
 #'   obs = c(0, 100),
 #'   n_grids = rep(1,2)
 #' )
-#' df2 <- tibble::tibble(
+#' zo2 <- tibble::tibble(
 #'   zone = 1:2,
 #'   obs = c(50,50),
 #'   n_grids = rep(1,2)
 #' )
-#' df2
-#' calc_ei(df1) |> print()
-#' calc_ei(df2) |> print()
-calc_ei <- function(df) {
-  N <- sum(df$obs)
-  n <- length(unique(df$zone))
-  df <- df |>
+#' calc_ei(zo1)
+#' calc_ei(zo2)
+calc_ei <- function(zone_obj) {
+  N <- sum(zone_obj$obs)
+  n <- length(unique(zone_obj$zone))
+  ei <- zone_obj |>
     dplyr::mutate(
       ri = obs / N,
       pi = n_grids / sum(n_grids),
@@ -33,5 +32,5 @@ calc_ei <- function(df) {
       wi = ratio / sum(ratio),
       ei = (wi - 1/n) / (wi + 1/n)
     )
-  df
+  ei
 }

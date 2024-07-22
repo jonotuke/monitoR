@@ -4,10 +4,10 @@
 \alias{calc_ei}
 \title{calc ei}
 \usage{
-calc_ei(df)
+calc_ei(zone_obj)
 }
 \arguments{
-\item{df}{tibble with columns zone, obs and n of grid for zone}
+\item{zone_obj}{a zone object}
 }
 \value{
 tibble with calculation and ei
@@ -16,17 +16,16 @@ tibble with calculation and ei
 calc ei
 }
 \examples{
-df1 <- tibble::tibble(
+zo1 <- tibble::tibble(
   zone = 1:2,
   obs = c(0, 100),
   n_grids = rep(1,2)
 )
-df2 <- tibble::tibble(
+zo2 <- tibble::tibble(
   zone = 1:2,
   obs = c(50,50),
   n_grids = rep(1,2)
 )
-df2
-calc_ei(df1) |> print()
-calc_ei(df2) |> print()
+calc_ei(zo1)
+calc_ei(zo2)
 }

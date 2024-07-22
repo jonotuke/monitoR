@@ -6,7 +6,7 @@ utils::globalVariables(
 #' @param zoo zoo monitor tibble
 #' @param grid grid object 
 #'
-#' @return zoo object with grid and zones
+#' @return zoo grid object
 #' @export
 #'
 #' @examples

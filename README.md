@@ -4,8 +4,6 @@
 # monitoR
 
 <!-- badges: start -->
-
-[![R-CMD-check](https://github.com/jonotuke/monitoR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jonotuke/monitoR/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of monitoR is to …

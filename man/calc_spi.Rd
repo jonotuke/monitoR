@@ -4,10 +4,10 @@
 \alias{calc_spi}
 \title{calculate SPI}
 \usage{
-calc_spi(zones)
+calc_spi(zone_obj)
 }
 \arguments{
-\item{zones}{tibble from get_measure_summary()}
+\item{zone_obj}{zone obj}
 }
 \value{
 SPI
@@ -20,5 +20,5 @@ data(skink_grid)
 data(grid)
 grid$zone[1:2] <- 2
 grid
-get_measure_summary(grid, skink_grid) |> calc_spi()
+get_zone_object(grid, skink_grid) |> calc_spi()
 }

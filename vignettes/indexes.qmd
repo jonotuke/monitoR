@@ -117,7 +117,7 @@ Putting this together gives SPI = 0,
 ```{r}
 #| lst-label: spi-even
 #| lst-cap: Even spread SPI
-get_measure_summary(grid_even, obs) |> calc_spi()
+get_zone_object(grid_even, obs) |> calc_spi()
 ```
 
 Now, we consider the uneven case (@fig-spi-uneven), in this case, we have the same points, 100 in Grid 3 and 100 in Grid 2, but now all the points appear in Zone 2, and none in Zone 1. So now we have
@@ -138,7 +138,7 @@ plot_grid(grid_uneven, obs, grid_col = TRUE, zone_fill = TRUE)
 This gives the largest possible modified SPI of 
 
 ```{r}
-get_measure_summary(grid_uneven, obs) |> calc_spi()
+get_zone_object(grid_uneven, obs) |> calc_spi()
 ```
 
 
@@ -155,7 +155,7 @@ where $n$ is the number of zones, $r_i$ is the proportion number of observations
 
 Consider the case of even spread (@fig-spi-even), this gives a EI of
 ```{r}
-get_measure_summary(grid_even, obs) |> 
+get_zone_object(grid_even, obs) |> 
   calc_ei() |> 
   dplyr::select(zone, ei) |> 
   gt::gt()
@@ -163,7 +163,7 @@ get_measure_summary(grid_even, obs) |>
 so zero for each zone. 
 While in the case of uneven spread (@fig-spi-uneven), we have an EI of 
 ```{r}
-get_measure_summary(grid_uneven, obs) |> 
+get_zone_object(grid_uneven, obs) |> 
   calc_ei() |> 
   dplyr::select(zone, ei) |> 
   gt::gt()

@@ -1,20 +1,20 @@
 utils::globalVariables(
   c("obs")
 )
-#' get measure summary
+#' get zone object
 #'
 #' @param grid grid object
 #' @param zoo_grid zoo grid object
 #'
-#' @return summary of zones
+#' @return zone object
 #' @export
 #'
 #' @examples
 #' data(grid)
 #' grid$zone[2] <- 2
 #' data(skink_grid)
-#' get_measure_summary(grid, skink_grid)
-get_measure_summary <- function(grid, zoo_grid){
+#' get_zone_object(grid, skink_grid)
+get_zone_object <- function(grid, zoo_grid){
   grids <- grid |> 
     dplyr::select(zone, grid) |> 
     dplyr::mutate(obs = 0)

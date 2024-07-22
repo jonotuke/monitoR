@@ -14,8 +14,8 @@ plot_grid(grid_even, obs, grid_col = TRUE, zone_fill = TRUE)
 plot_grid(grid_uneven, obs, grid_col = TRUE, zone_fill = TRUE)
 plot_grid(grid_onezone, obs, grid_col = TRUE, zone_fill = TRUE)
 test_that("even spi", {
-  expect_equal(get_measure_summary(grid_even, obs) |> calc_spi(), 0)
+  expect_equal(get_zone_object(grid_even, obs) |> calc_spi(), 0)
 })
 test_that("uneven spi", {
-  expect_equal(get_measure_summary(grid_uneven, obs) |> calc_spi(), 1)
+  expect_equal(get_zone_object(grid_uneven, obs) |> calc_spi(), 1)
 })

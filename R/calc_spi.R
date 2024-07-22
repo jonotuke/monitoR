@@ -1,6 +1,6 @@
 #' calculate SPI
 #'
-#' @param zones tibble from get_measure_summary()
+#' @param zone_obj zone obj
 #'
 #' @return SPI
 #' @export
@@ -10,15 +10,15 @@
 #' data(grid)
 #' grid$zone[1:2] <- 2
 #' grid
-#' get_measure_summary(grid, skink_grid) |> calc_spi()
-calc_spi <- function(zones) {
-  zones <- zones |>
+#' get_zone_object(grid, skink_grid) |> calc_spi()
+calc_spi <- function(zone_obj) {
+  zone_obj <- zone_obj |>
     dplyr::rename(fo = obs)
-  N <- sum(zones$fo)
-  zones <- zones |>
+  N <- sum(zone_obj$fo)
+  zone_obj <- zone_obj |>
     dplyr::mutate(
       fe = N * n_grids / sum(n_grids)
     )
-  SPI <- sum(abs(zones$fo - zones$fe)) / (2 * (N - min(zones$fe)))
+  SPI <- sum(abs(zone_obj$fo - zone_obj$fe)) / (2 * (N - min(zone_obj$fe)))
   SPI
 }

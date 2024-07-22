@@ -12,7 +12,7 @@ add_grid(zoo, grid)
 \item{grid}{grid object}
 }
 \value{
-zoo object with grid and zones
+zoo grid object
 }
 \description{
 Add grid

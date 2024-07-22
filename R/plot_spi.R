@@ -15,12 +15,12 @@ utils::globalVariables(
 #' grid$zone[1:8] <- 2
 #' plot_spi(grid, skink_grid)
 plot_spi <- function(grid, zoo_grid) {
-  overall_spi <- get_measure_summary(grid, zoo_grid) |> calc_spi()
+  overall_spi <- get_zone_object(grid, zoo_grid) |> calc_spi()
   zoo_grid |>
   dplyr::group_by(behaviour) |>
   tidyr::nest() |>
   dplyr::mutate(
-    spi = purrr::map(data, \(x) get_measure_summary(grid, x) |> calc_spi())
+    spi = purrr::map(data, \(x) get_zone_object(grid, x) |> calc_spi())
   ) |>
     tidyr::unnest(spi) |>
   dplyr::ungroup() |>
