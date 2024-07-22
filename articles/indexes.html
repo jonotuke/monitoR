@@ -156,7 +156,7 @@ Figure 1: Simulated dataset with even spread
 <p>Putting this together gives SPI = 0,</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="spi-even" data-lst-cap="Even spread SPI"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/get_measure_summary.html">get_measure_summary</a></span><span class="op">(</span><span class="va">grid_even</span>, <span class="va">obs</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/calc_spi.html">calc_spi</a></span><span class="op">(</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/get_zone_object.html">get_zone_object</a></span><span class="op">(</span><span class="va">grid_even</span>, <span class="va">obs</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/calc_spi.html">calc_spi</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0</span></span></code></pre></div>
 </div>
 <p>Now, we consider the uneven case (<a href="#fig-spi-uneven" class="quarto-xref">Figure 2</a>), in this case, we have the same points, 100 in Grid 3 and 100 in Grid 2, but now all the points appear in Zone 2, and none in Zone 1. So now we have</p>
@@ -188,7 +188,7 @@ Figure 2: Simulated uneven data
 <p>This gives the largest possible modified SPI of</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/get_measure_summary.html">get_measure_summary</a></span><span class="op">(</span><span class="va">grid_uneven</span>, <span class="va">obs</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/calc_spi.html">calc_spi</a></span><span class="op">(</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/get_zone_object.html">get_zone_object</a></span><span class="op">(</span><span class="va">grid_uneven</span>, <span class="va">obs</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/calc_spi.html">calc_spi</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 1</span></span></code></pre></div>
 </div>
 </section><section class="section level2"><h2 id="electivity-index">Electivity Index<a class="anchor" aria-label="anchor" href="#electivity-index"></a>
@@ -201,28 +201,28 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
 <p>Consider the case of even spread (<a href="#fig-spi-even" class="quarto-xref">Figure 1</a>), this gives a EI of</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/get_measure_summary.html">get_measure_summary</a></span><span class="op">(</span><span class="va">grid_even</span>, <span class="va">obs</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/get_zone_object.html">get_zone_object</a></span><span class="op">(</span><span class="va">grid_even</span>, <span class="va">obs</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/calc_ei.html">calc_ei</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">zone</span>, <span class="va">ei</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
-<div id="iffvjmwwck" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#iffvjmwwck table {
+<div id="isaypknhrl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#isaypknhrl table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#iffvjmwwck thead, #iffvjmwwck tbody, #iffvjmwwck tfoot, #iffvjmwwck tr, #iffvjmwwck td, #iffvjmwwck th {
+#isaypknhrl thead, #isaypknhrl tbody, #isaypknhrl tfoot, #isaypknhrl tr, #isaypknhrl td, #isaypknhrl th {
   border-style: none;
 }
 
-#iffvjmwwck p {
+#isaypknhrl p {
   margin: 0;
   padding: 0;
 }
 
-#iffvjmwwck .gt_table {
+#isaypknhrl .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -248,12 +248,12 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   border-left-color: #D3D3D3;
 }
 
-#iffvjmwwck .gt_caption {
+#isaypknhrl .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#iffvjmwwck .gt_title {
+#isaypknhrl .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -265,7 +265,7 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   border-bottom-width: 0;
 }
 
-#iffvjmwwck .gt_subtitle {
+#isaypknhrl .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -277,7 +277,7 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   border-top-width: 0;
 }
 
-#iffvjmwwck .gt_heading {
+#isaypknhrl .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -289,13 +289,13 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   border-right-color: #D3D3D3;
 }
 
-#iffvjmwwck .gt_bottom_border {
+#isaypknhrl .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#iffvjmwwck .gt_col_headings {
+#isaypknhrl .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -310,7 +310,7 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   border-right-color: #D3D3D3;
 }
 
-#iffvjmwwck .gt_col_heading {
+#isaypknhrl .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -330,7 +330,7 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   overflow-x: hidden;
 }
 
-#iffvjmwwck .gt_column_spanner_outer {
+#isaypknhrl .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -342,15 +342,15 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   padding-right: 4px;
 }
 
-#iffvjmwwck .gt_column_spanner_outer:first-child {
+#isaypknhrl .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#iffvjmwwck .gt_column_spanner_outer:last-child {
+#isaypknhrl .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#iffvjmwwck .gt_column_spanner {
+#isaypknhrl .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -362,11 +362,11 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   width: 100%;
 }
 
-#iffvjmwwck .gt_spanner_row {
+#isaypknhrl .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#iffvjmwwck .gt_group_heading {
+#isaypknhrl .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -392,7 +392,7 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   text-align: left;
 }
 
-#iffvjmwwck .gt_empty_group_heading {
+#isaypknhrl .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -407,15 +407,15 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   vertical-align: middle;
 }
 
-#iffvjmwwck .gt_from_md > :first-child {
+#isaypknhrl .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#iffvjmwwck .gt_from_md > :last-child {
+#isaypknhrl .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#iffvjmwwck .gt_row {
+#isaypknhrl .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -434,7 +434,7 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   overflow-x: hidden;
 }
 
-#iffvjmwwck .gt_stub {
+#isaypknhrl .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -447,7 +447,7 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   padding-right: 5px;
 }
 
-#iffvjmwwck .gt_stub_row_group {
+#isaypknhrl .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -461,15 +461,15 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   vertical-align: top;
 }
 
-#iffvjmwwck .gt_row_group_first td {
+#isaypknhrl .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#iffvjmwwck .gt_row_group_first th {
+#isaypknhrl .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#iffvjmwwck .gt_summary_row {
+#isaypknhrl .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -479,16 +479,16 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   padding-right: 5px;
 }
 
-#iffvjmwwck .gt_first_summary_row {
+#isaypknhrl .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#iffvjmwwck .gt_first_summary_row.thick {
+#isaypknhrl .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#iffvjmwwck .gt_last_summary_row {
+#isaypknhrl .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -498,7 +498,7 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   border-bottom-color: #D3D3D3;
 }
 
-#iffvjmwwck .gt_grand_summary_row {
+#isaypknhrl .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -508,7 +508,7 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   padding-right: 5px;
 }
 
-#iffvjmwwck .gt_first_grand_summary_row {
+#isaypknhrl .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -518,7 +518,7 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   border-top-color: #D3D3D3;
 }
 
-#iffvjmwwck .gt_last_grand_summary_row_top {
+#isaypknhrl .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -528,11 +528,11 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   border-bottom-color: #D3D3D3;
 }
 
-#iffvjmwwck .gt_striped {
+#isaypknhrl .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#iffvjmwwck .gt_table_body {
+#isaypknhrl .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -541,7 +541,7 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   border-bottom-color: #D3D3D3;
 }
 
-#iffvjmwwck .gt_footnotes {
+#isaypknhrl .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -555,7 +555,7 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   border-right-color: #D3D3D3;
 }
 
-#iffvjmwwck .gt_footnote {
+#isaypknhrl .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -564,7 +564,7 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   padding-right: 5px;
 }
 
-#iffvjmwwck .gt_sourcenotes {
+#isaypknhrl .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -578,7 +578,7 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   border-right-color: #D3D3D3;
 }
 
-#iffvjmwwck .gt_sourcenote {
+#isaypknhrl .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -586,72 +586,72 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   padding-right: 5px;
 }
 
-#iffvjmwwck .gt_left {
+#isaypknhrl .gt_left {
   text-align: left;
 }
 
-#iffvjmwwck .gt_center {
+#isaypknhrl .gt_center {
   text-align: center;
 }
 
-#iffvjmwwck .gt_right {
+#isaypknhrl .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#iffvjmwwck .gt_font_normal {
+#isaypknhrl .gt_font_normal {
   font-weight: normal;
 }
 
-#iffvjmwwck .gt_font_bold {
+#isaypknhrl .gt_font_bold {
   font-weight: bold;
 }
 
-#iffvjmwwck .gt_font_italic {
+#isaypknhrl .gt_font_italic {
   font-style: italic;
 }
 
-#iffvjmwwck .gt_super {
+#isaypknhrl .gt_super {
   font-size: 65%;
 }
 
-#iffvjmwwck .gt_footnote_marks {
+#isaypknhrl .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#iffvjmwwck .gt_asterisk {
+#isaypknhrl .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#iffvjmwwck .gt_indent_1 {
+#isaypknhrl .gt_indent_1 {
   text-indent: 5px;
 }
 
-#iffvjmwwck .gt_indent_2 {
+#isaypknhrl .gt_indent_2 {
   text-indent: 10px;
 }
 
-#iffvjmwwck .gt_indent_3 {
+#isaypknhrl .gt_indent_3 {
   text-indent: 15px;
 }
 
-#iffvjmwwck .gt_indent_4 {
+#isaypknhrl .gt_indent_4 {
   text-indent: 20px;
 }
 
-#iffvjmwwck .gt_indent_5 {
+#isaypknhrl .gt_indent_5 {
   text-indent: 25px;
 }
 
-#iffvjmwwck .katex-display {
+#isaypknhrl .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#iffvjmwwck div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#isaypknhrl div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -677,28 +677,28 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
 <p>so zero for each zone. While in the case of uneven spread (<a href="#fig-spi-uneven" class="quarto-xref">Figure 2</a>), we have an EI of</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/get_measure_summary.html">get_measure_summary</a></span><span class="op">(</span><span class="va">grid_uneven</span>, <span class="va">obs</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/get_zone_object.html">get_zone_object</a></span><span class="op">(</span><span class="va">grid_uneven</span>, <span class="va">obs</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/calc_ei.html">calc_ei</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">zone</span>, <span class="va">ei</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
-<div id="qgnfaojdgd" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#qgnfaojdgd table {
+<div id="hseafztzpw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#hseafztzpw table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#qgnfaojdgd thead, #qgnfaojdgd tbody, #qgnfaojdgd tfoot, #qgnfaojdgd tr, #qgnfaojdgd td, #qgnfaojdgd th {
+#hseafztzpw thead, #hseafztzpw tbody, #hseafztzpw tfoot, #hseafztzpw tr, #hseafztzpw td, #hseafztzpw th {
   border-style: none;
 }
 
-#qgnfaojdgd p {
+#hseafztzpw p {
   margin: 0;
   padding: 0;
 }
 
-#qgnfaojdgd .gt_table {
+#hseafztzpw .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -724,12 +724,12 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   border-left-color: #D3D3D3;
 }
 
-#qgnfaojdgd .gt_caption {
+#hseafztzpw .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#qgnfaojdgd .gt_title {
+#hseafztzpw .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -741,7 +741,7 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   border-bottom-width: 0;
 }
 
-#qgnfaojdgd .gt_subtitle {
+#hseafztzpw .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -753,7 +753,7 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   border-top-width: 0;
 }
 
-#qgnfaojdgd .gt_heading {
+#hseafztzpw .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -765,13 +765,13 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   border-right-color: #D3D3D3;
 }
 
-#qgnfaojdgd .gt_bottom_border {
+#hseafztzpw .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#qgnfaojdgd .gt_col_headings {
+#hseafztzpw .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -786,7 +786,7 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   border-right-color: #D3D3D3;
 }
 
-#qgnfaojdgd .gt_col_heading {
+#hseafztzpw .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -806,7 +806,7 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   overflow-x: hidden;
 }
 
-#qgnfaojdgd .gt_column_spanner_outer {
+#hseafztzpw .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -818,15 +818,15 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   padding-right: 4px;
 }
 
-#qgnfaojdgd .gt_column_spanner_outer:first-child {
+#hseafztzpw .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#qgnfaojdgd .gt_column_spanner_outer:last-child {
+#hseafztzpw .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#qgnfaojdgd .gt_column_spanner {
+#hseafztzpw .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -838,11 +838,11 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   width: 100%;
 }
 
-#qgnfaojdgd .gt_spanner_row {
+#hseafztzpw .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#qgnfaojdgd .gt_group_heading {
+#hseafztzpw .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -868,7 +868,7 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   text-align: left;
 }
 
-#qgnfaojdgd .gt_empty_group_heading {
+#hseafztzpw .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -883,15 +883,15 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   vertical-align: middle;
 }
 
-#qgnfaojdgd .gt_from_md > :first-child {
+#hseafztzpw .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#qgnfaojdgd .gt_from_md > :last-child {
+#hseafztzpw .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#qgnfaojdgd .gt_row {
+#hseafztzpw .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -910,7 +910,7 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   overflow-x: hidden;
 }
 
-#qgnfaojdgd .gt_stub {
+#hseafztzpw .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -923,7 +923,7 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   padding-right: 5px;
 }
 
-#qgnfaojdgd .gt_stub_row_group {
+#hseafztzpw .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -937,15 +937,15 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   vertical-align: top;
 }
 
-#qgnfaojdgd .gt_row_group_first td {
+#hseafztzpw .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#qgnfaojdgd .gt_row_group_first th {
+#hseafztzpw .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#qgnfaojdgd .gt_summary_row {
+#hseafztzpw .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -955,16 +955,16 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   padding-right: 5px;
 }
 
-#qgnfaojdgd .gt_first_summary_row {
+#hseafztzpw .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#qgnfaojdgd .gt_first_summary_row.thick {
+#hseafztzpw .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#qgnfaojdgd .gt_last_summary_row {
+#hseafztzpw .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -974,7 +974,7 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   border-bottom-color: #D3D3D3;
 }
 
-#qgnfaojdgd .gt_grand_summary_row {
+#hseafztzpw .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -984,7 +984,7 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   padding-right: 5px;
 }
 
-#qgnfaojdgd .gt_first_grand_summary_row {
+#hseafztzpw .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -994,7 +994,7 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   border-top-color: #D3D3D3;
 }
 
-#qgnfaojdgd .gt_last_grand_summary_row_top {
+#hseafztzpw .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1004,11 +1004,11 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   border-bottom-color: #D3D3D3;
 }
 
-#qgnfaojdgd .gt_striped {
+#hseafztzpw .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#qgnfaojdgd .gt_table_body {
+#hseafztzpw .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1017,7 +1017,7 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   border-bottom-color: #D3D3D3;
 }
 
-#qgnfaojdgd .gt_footnotes {
+#hseafztzpw .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1031,7 +1031,7 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   border-right-color: #D3D3D3;
 }
 
-#qgnfaojdgd .gt_footnote {
+#hseafztzpw .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1040,7 +1040,7 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   padding-right: 5px;
 }
 
-#qgnfaojdgd .gt_sourcenotes {
+#hseafztzpw .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1054,7 +1054,7 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   border-right-color: #D3D3D3;
 }
 
-#qgnfaojdgd .gt_sourcenote {
+#hseafztzpw .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1062,72 +1062,72 @@ W_i = \frac{r_i/p_i}{\sum_{i=1}^nr_i/p_i},
   padding-right: 5px;
 }
 
-#qgnfaojdgd .gt_left {
+#hseafztzpw .gt_left {
   text-align: left;
 }
 
-#qgnfaojdgd .gt_center {
+#hseafztzpw .gt_center {
   text-align: center;
 }
 
-#qgnfaojdgd .gt_right {
+#hseafztzpw .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#qgnfaojdgd .gt_font_normal {
+#hseafztzpw .gt_font_normal {
   font-weight: normal;
 }
 
-#qgnfaojdgd .gt_font_bold {
+#hseafztzpw .gt_font_bold {
   font-weight: bold;
 }
 
-#qgnfaojdgd .gt_font_italic {
+#hseafztzpw .gt_font_italic {
   font-style: italic;
 }
 
-#qgnfaojdgd .gt_super {
+#hseafztzpw .gt_super {
   font-size: 65%;
 }
 
-#qgnfaojdgd .gt_footnote_marks {
+#hseafztzpw .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#qgnfaojdgd .gt_asterisk {
+#hseafztzpw .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#qgnfaojdgd .gt_indent_1 {
+#hseafztzpw .gt_indent_1 {
   text-indent: 5px;
 }
 
-#qgnfaojdgd .gt_indent_2 {
+#hseafztzpw .gt_indent_2 {
   text-indent: 10px;
 }
 
-#qgnfaojdgd .gt_indent_3 {
+#hseafztzpw .gt_indent_3 {
   text-indent: 15px;
 }
 
-#qgnfaojdgd .gt_indent_4 {
+#hseafztzpw .gt_indent_4 {
   text-indent: 20px;
 }
 
-#qgnfaojdgd .gt_indent_5 {
+#hseafztzpw .gt_indent_5 {
   text-indent: 25px;
 }
 
-#qgnfaojdgd .katex-display {
+#hseafztzpw .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#qgnfaojdgd div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#hseafztzpw div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>

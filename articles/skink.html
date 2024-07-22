@@ -72,7 +72,8 @@
     <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jonotuke/monitoR" class="external-link">monitoR</a></span><span class="op">)</span></span>
-<span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html" class="external-link">p_load</a></span><span class="op">(</span><span class="va">conflicted</span>, <span class="va">tidyverse</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html" class="external-link">p_load</a></span><span class="op">(</span><span class="va">conflicted</span>, <span class="va">tidyverse</span>, <span class="va">gt</span><span class="op">)</span></span>
+<span><span class="fu">theme_set</span><span class="op">(</span><span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <section class="section level2"><h2 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a>
 </h2>
@@ -142,7 +143,7 @@ Figure 1: Skink dataset with grid
 <div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">null_entropy</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.025</span>, <span class="fl">0.975</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;     2.5%    97.5% </span></span>
-<span><span class="co">#&gt; 1.203244 1.203906</span></span></code></pre></div>
+<span><span class="co">#&gt; 1.203235 1.203912</span></span></code></pre></div>
 </div>
 <p>we see that it does not contain the observed value, so the observations are not evenly spread.</p>
 <p><strong>Entropy and behaviour</strong></p>
@@ -194,37 +195,727 @@ ESS = \sum^k_{i = 1} (E_i - E_{\bullet})^2,
 <code class="sourceCode R"><span><span class="va">ess_null</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_ess_null.html">get_ess_null</a></span><span class="op">(</span><span class="va">skink_grid</span>, n_sims <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">ess_null</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.025</span>, <span class="fl">0.975</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      2.5%     97.5% </span></span>
-<span><span class="co">#&gt; 0.1648775 0.8110867</span></span></code></pre></div>
+<span><span class="co">#&gt; 0.1335139 0.7914436</span></span></code></pre></div>
 </div>
 <p>So this time we find that the observed ESS is within the 95% empirical confidence interval and so is not surprising.</p>
-</section></section><section class="section level2"><h2 id="neighbourhoods">Neighbourhoods<a class="anchor" aria-label="anchor" href="#neighbourhoods"></a>
+</section></section><section class="section level2"><h2 id="environment-effects">Environment effects<a class="anchor" aria-label="anchor" href="#environment-effects"></a>
 </h2>
+<p>So, we will now focus on Basking (<a href="#fig-basking" class="quarto-xref">Figure 3</a>). We will assume for illustration that there are rocks in Grid 5, 6, 7, 8, 2, and 3.</p>
+<p>We want to ask the question of</p>
+<blockquote>
+<p>Is it more likely to bask where there are rocks?</p>
+</blockquote>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_neigh.html">plot_neigh</a></span><span class="op">(</span><span class="va">grid</span>, <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<div class="cell-output-display">
-<div>
-<figure><p><img src="skink_files/figure-html/unnamed-chunk-13-1.png" width="672"></p>
-</figure>
+<code class="sourceCode R"><span><span class="va">skink_bask</span> <span class="op">&lt;-</span> <span class="va">skink_grid</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">behaviour</span> <span class="op">==</span> <span class="st">"Basking"</span><span class="op">)</span></span></code></pre></div>
 </div>
-</div>
+<div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_neigh.html">plot_neigh</a></span><span class="op">(</span><span class="va">grid</span>, <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_grid.html">plot_grid</a></span><span class="op">(</span><span class="va">grid</span>, <span class="va">skink_bask</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
-<div>
-<figure><p><img src="skink_files/figure-html/unnamed-chunk-13-2.png" width="672"></p>
-</figure>
+<div id="fig-basking" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig"><div aria-describedby="fig-basking-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="skink_files/figure-html/fig-basking-1.png" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-basking-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 3: Observations where just basking
+</figcaption></figure>
 </div>
 </div>
+</div>
+<p><a href="#tbl-bask" class="quarto-xref">Table 1</a> gives the number of times that the skink is seen basking in each grid. As well, we have given the type of environment.</p>
+<div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_neigh.html">plot_neigh</a></span><span class="op">(</span><span class="va">grid</span>, <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">basking_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/count_grid_behaviour.html">count_grid_behaviour</a></span><span class="op">(</span>grid <span class="op">=</span> <span class="va">grid</span>, <span class="va">skink_bask</span><span class="op">)</span> </span>
+<span><span class="va">basking_df</span> <span class="op">&lt;-</span> <span class="va">basking_df</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span></span>
+<span>    environ <span class="op">=</span> <span class="st">"normal"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="va">basking_df</span><span class="op">$</span><span class="va">environ</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">6</span>, <span class="fl">7</span>, <span class="fl">8</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"rocks"</span></span>
+<span><span class="va">basking_df</span> <span class="op">|&gt;</span> <span class="fu">gt</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div id="tbl-bask" class="cell quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-tbl"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-bask-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table 1: Count of number of basking events for each grid.
+</figcaption><div aria-describedby="tbl-bask-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div>
-<figure><p><img src="skink_files/figure-html/unnamed-chunk-13-3.png" width="672"></p>
+<div id="jzfjusavvi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#jzfjusavvi table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#jzfjusavvi thead, #jzfjusavvi tbody, #jzfjusavvi tfoot, #jzfjusavvi tr, #jzfjusavvi td, #jzfjusavvi th {
+  border-style: none;
+}
+
+#jzfjusavvi p {
+  margin: 0;
+  padding: 0;
+}
+
+#jzfjusavvi .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#jzfjusavvi .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#jzfjusavvi .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#jzfjusavvi .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#jzfjusavvi .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jzfjusavvi .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jzfjusavvi .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jzfjusavvi .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#jzfjusavvi .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#jzfjusavvi .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#jzfjusavvi .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#jzfjusavvi .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#jzfjusavvi .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#jzfjusavvi .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#jzfjusavvi .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#jzfjusavvi .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#jzfjusavvi .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#jzfjusavvi .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#jzfjusavvi .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jzfjusavvi .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#jzfjusavvi .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#jzfjusavvi .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#jzfjusavvi .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jzfjusavvi .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#jzfjusavvi .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#jzfjusavvi .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jzfjusavvi .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jzfjusavvi .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#jzfjusavvi .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jzfjusavvi .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#jzfjusavvi .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jzfjusavvi .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#jzfjusavvi .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jzfjusavvi .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#jzfjusavvi .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jzfjusavvi .gt_left {
+  text-align: left;
+}
+
+#jzfjusavvi .gt_center {
+  text-align: center;
+}
+
+#jzfjusavvi .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#jzfjusavvi .gt_font_normal {
+  font-weight: normal;
+}
+
+#jzfjusavvi .gt_font_bold {
+  font-weight: bold;
+}
+
+#jzfjusavvi .gt_font_italic {
+  font-style: italic;
+}
+
+#jzfjusavvi .gt_super {
+  font-size: 65%;
+}
+
+#jzfjusavvi .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#jzfjusavvi .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#jzfjusavvi .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#jzfjusavvi .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#jzfjusavvi .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#jzfjusavvi .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#jzfjusavvi .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#jzfjusavvi .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#jzfjusavvi div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<table class="table gt_table do-not-create-environment cell caption-top" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead><tr class="header gt_col_headings">
+<th id="grid" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">grid</th>
+<th id="obs" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">obs</th>
+<th id="environ" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">environ</th>
+</tr></thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_right" headers="grid">1</td>
+<td class="gt_row gt_right" headers="obs">5</td>
+<td class="gt_row gt_left" headers="environ">normal</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="grid">2</td>
+<td class="gt_row gt_right" headers="obs">684</td>
+<td class="gt_row gt_left" headers="environ">rocks</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="grid">3</td>
+<td class="gt_row gt_right" headers="obs">126</td>
+<td class="gt_row gt_left" headers="environ">rocks</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="grid">4</td>
+<td class="gt_row gt_right" headers="obs">4</td>
+<td class="gt_row gt_left" headers="environ">normal</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="grid">5</td>
+<td class="gt_row gt_right" headers="obs">36</td>
+<td class="gt_row gt_left" headers="environ">rocks</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="grid">6</td>
+<td class="gt_row gt_right" headers="obs">47</td>
+<td class="gt_row gt_left" headers="environ">rocks</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="grid">7</td>
+<td class="gt_row gt_right" headers="obs">199</td>
+<td class="gt_row gt_left" headers="environ">rocks</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="grid">8</td>
+<td class="gt_row gt_right" headers="obs">166</td>
+<td class="gt_row gt_left" headers="environ">rocks</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="grid">9</td>
+<td class="gt_row gt_right" headers="obs">0</td>
+<td class="gt_row gt_left" headers="environ">normal</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="grid">10</td>
+<td class="gt_row gt_right" headers="obs">0</td>
+<td class="gt_row gt_left" headers="environ">normal</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="grid">11</td>
+<td class="gt_row gt_right" headers="obs">7</td>
+<td class="gt_row gt_left" headers="environ">normal</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="grid">12</td>
+<td class="gt_row gt_right" headers="obs">1</td>
+<td class="gt_row gt_left" headers="environ">normal</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="grid">13</td>
+<td class="gt_row gt_right" headers="obs">0</td>
+<td class="gt_row gt_left" headers="environ">normal</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="grid">14</td>
+<td class="gt_row gt_right" headers="obs">0</td>
+<td class="gt_row gt_left" headers="environ">normal</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="grid">15</td>
+<td class="gt_row gt_right" headers="obs">0</td>
+<td class="gt_row gt_left" headers="environ">normal</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="grid">16</td>
+<td class="gt_row gt_right" headers="obs">0</td>
+<td class="gt_row gt_left" headers="environ">normal</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
 </figure>
 </div>
 </div>
+<p>We can fit a linear model of number of observations on environ, but we would also like to take into account the spatial dependency, that is, you will might be more likely to bask in grid next to one another. <strong>?@fig-neigh</strong> show the neighbourhood of a corner grid, edge grid and a middle grid.</p>
+<div class="sourceCode cell-code" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_neigh.html">plot_neigh</a></span><span class="op">(</span><span class="va">grid</span>, <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_neigh.html">plot_neigh</a></span><span class="op">(</span><span class="va">grid</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/plot_neigh.html">plot_neigh</a></span><span class="op">(</span><span class="va">grid</span>, <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
+<div class="cell quarto-layout-panel" data-layout-ncol="3">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-neigh-1" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig"><div aria-describedby="fig-neigh-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="skink_files/figure-html/fig-neigh-1.png" width="672">
 </div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-neigh-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 4: Neighbourhoods.
+</figcaption></figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-neigh-2" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig"><div aria-describedby="fig-neigh-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="skink_files/figure-html/fig-neigh-2.png" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-neigh-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 5: Neighbourhoods.
+</figcaption></figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-neigh-3" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig"><div aria-describedby="fig-neigh-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="skink_files/figure-html/fig-neigh-3.png" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-neigh-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 6: Neighbourhoods.
+</figcaption></figure>
+</div>
+</div>
+</div>
+</div>
+<p>First we add the neigh mean.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">M</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_neigh_mat.html">get_neigh_mat</a></span><span class="op">(</span><span class="va">grid</span><span class="op">)</span></span>
+<span><span class="va">basking_df</span><span class="op">$</span><span class="va">neigh</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">M</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="va">basking_df</span><span class="op">$</span><span class="va">obs</span><span class="op">)</span></span>
+<span><span class="va">basking_df</span></span>
+<span><span class="co">#&gt; # A tibble: 16 × 4</span></span>
+<span><span class="co">#&gt;     grid   obs environ  neigh</span></span>
+<span><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1     1     5 normal  256.  </span></span>
+<span><span class="co">#&gt;  2     2   684 rocks    82.6 </span></span>
+<span><span class="co">#&gt;  3     3   126 rocks   220   </span></span>
+<span><span class="co">#&gt;  4     4     4 normal  164.  </span></span>
+<span><span class="co">#&gt;  5     5    36 rocks   147.  </span></span>
+<span><span class="co">#&gt;  6     6    47 rocks   132.  </span></span>
+<span><span class="co">#&gt;  7     7   199 rocks   129.  </span></span>
+<span><span class="co">#&gt;  8     8   166 rocks    67.4 </span></span>
+<span><span class="co">#&gt;  9     9     0 normal   16.6 </span></span>
+<span><span class="co">#&gt; 10    10     0 normal   36.1 </span></span>
+<span><span class="co">#&gt; 11    11     7 normal   51.6 </span></span>
+<span><span class="co">#&gt; 12    12     1 normal   74.4 </span></span>
+<span><span class="co">#&gt; 13    13     0 normal    0   </span></span>
+<span><span class="co">#&gt; 14    14     0 normal    1.4 </span></span>
+<span><span class="co">#&gt; 15    15     0 normal    1.6 </span></span>
+<span><span class="co">#&gt; 16    16     0 normal    2.67</span></span></code></pre></div>
+</div>
+<p>And then fit some models</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">M1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">obs</span> <span class="op">~</span> <span class="va">environ</span> <span class="op">*</span> <span class="va">neigh</span>, data <span class="op">=</span> <span class="va">basking_df</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">M1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt; lm(formula = obs ~ environ * neigh, data = basking_df)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Residuals:</span></span>
+<span><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
+<span><span class="co">#&gt; -174.75   -3.78   -0.61   -0.30  375.19 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients:</span></span>
+<span><span class="co">#&gt;                    Estimate Std. Error t value Pr(&gt;|t|)  </span></span>
+<span><span class="co">#&gt; (Intercept)          0.4625    54.1866   0.009   0.9933  </span></span>
+<span><span class="co">#&gt; environrocks       481.9039   167.0120   2.885   0.0137 *</span></span>
+<span><span class="co">#&gt; neigh                0.0205     0.5367   0.038   0.9702  </span></span>
+<span><span class="co">#&gt; environrocks:neigh  -2.1217     1.2582  -1.686   0.1175  </span></span>
+<span><span class="co">#&gt; ---</span></span>
+<span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Residual standard error: 137.3 on 12 degrees of freedom</span></span>
+<span><span class="co">#&gt; Multiple R-squared:  0.5002, Adjusted R-squared:  0.3752 </span></span>
+<span><span class="co">#&gt; F-statistic: 4.003 on 3 and 12 DF,  p-value: 0.03452</span></span>
+<span><span class="va">M2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span><span class="va">M1</span>, <span class="va">.</span><span class="op">~</span><span class="va">.</span> <span class="op">-</span> <span class="va">environ</span><span class="op">:</span><span class="va">neigh</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">M2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt; lm(formula = obs ~ environ + neigh, data = basking_df)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Residuals:</span></span>
+<span><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
+<span><span class="co">#&gt; -167.30  -30.50  -20.25    2.68  457.09 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients:</span></span>
+<span><span class="co">#&gt;              Estimate Std. Error t value Pr(&gt;|t|)  </span></span>
+<span><span class="co">#&gt; (Intercept)   23.7684    55.9865   0.425   0.6781  </span></span>
+<span><span class="co">#&gt; environrocks 233.3370    83.9025   2.781   0.0156 *</span></span>
+<span><span class="co">#&gt; neigh         -0.3655     0.5187  -0.705   0.4934  </span></span>
+<span><span class="co">#&gt; ---</span></span>
+<span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Residual standard error: 146.8 on 13 degrees of freedom</span></span>
+<span><span class="co">#&gt; Multiple R-squared:  0.3817, Adjusted R-squared:  0.2866 </span></span>
+<span><span class="co">#&gt; F-statistic: 4.013 on 2 and 13 DF,  p-value: 0.04391</span></span>
+<span><span class="va">M3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span><span class="va">M2</span>, <span class="va">.</span><span class="op">~</span><span class="va">.</span> <span class="op">-</span> <span class="va">neigh</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">M3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt; lm(formula = obs ~ environ, data = basking_df)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Residuals:</span></span>
+<span><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
+<span><span class="co">#&gt; -173.67  -18.92   -1.70    0.05  474.33 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients:</span></span>
+<span><span class="co">#&gt;              Estimate Std. Error t value Pr(&gt;|t|)  </span></span>
+<span><span class="co">#&gt; (Intercept)      1.70      45.57   0.037   0.9708  </span></span>
+<span><span class="co">#&gt; environrocks   207.97      74.41   2.795   0.0143 *</span></span>
+<span><span class="co">#&gt; ---</span></span>
+<span><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Residual standard error: 144.1 on 14 degrees of freedom</span></span>
+<span><span class="co">#&gt; Multiple R-squared:  0.3581, Adjusted R-squared:  0.3123 </span></span>
+<span><span class="co">#&gt; F-statistic: 7.811 on 1 and 14 DF,  p-value: 0.01433</span></span></code></pre></div>
+</div>
+<p>So it looks like there is no dependency.</p>
 </section><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
