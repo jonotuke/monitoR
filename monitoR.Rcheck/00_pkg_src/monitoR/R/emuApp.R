@@ -6,7 +6,7 @@ emuApp <- function(){
   # data(skink)
   ui <- shiny::fluidPage(
     
-    shiny::titlePanel("EMU app"),
+    shiny::titlePanel("MonitoR shiny app"),
     
     shiny::sidebarLayout(
       shiny::sidebarPanel(

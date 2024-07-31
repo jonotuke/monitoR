@@ -1,0 +1,10 @@
+name: monitoR
+title:
+username: jonotuke
+account: jonotuke
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 12135574
+bundleId: 8927829
+url: https://jonotuke.shinyapps.io/monitoR/
+version: 1

@@ -1,0 +1,29 @@
+---
+title: "Datasets"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Datasets}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(monitoR)
+```
+
+## Skink dataset
+This gives the position and behaviour of skinks. @fig-skink gives the location and type of behaviour given in the zoo-monitor data. 
+
+
+```{r}
+#| fig-cap: Skink dataset
+#| label: fig-skink
+plot_grid(grid, skink)
+```
