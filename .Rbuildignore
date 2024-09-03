@@ -13,3 +13,4 @@
 ^Meta$
 app.R
 rsconnect
+^inst/papers$
