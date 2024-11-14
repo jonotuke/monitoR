@@ -143,7 +143,7 @@ Figure 1: Skink dataset with grid
 <div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">null_entropy</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.025</span>, <span class="fl">0.975</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;     2.5%    97.5% </span></span>
-<span><span class="co">#&gt; 1.203204 1.203920</span></span></code></pre></div>
+<span><span class="co">#&gt; 1.203217 1.203929</span></span></code></pre></div>
 </div>
 <p>we see that it does not contain the observed value, so the observations are not evenly spread.</p>
 <p><strong>Entropy and behaviour</strong></p>
@@ -195,7 +195,7 @@ ESS = \sum^k_{i = 1} (E_i - E_{\bullet})^2,
 <code class="sourceCode R"><span><span class="va">ess_null</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_ess_null.html">get_ess_null</a></span><span class="op">(</span><span class="va">skink_grid</span>, n_sims <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">ess_null</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.025</span>, <span class="fl">0.975</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      2.5%     97.5% </span></span>
-<span><span class="co">#&gt; 0.1460262 0.8954728</span></span></code></pre></div>
+<span><span class="co">#&gt; 0.1552769 0.8147604</span></span></code></pre></div>
 </div>
 <p>So this time we find that the observed ESS is within the 95% empirical confidence interval and so is not surprising.</p>
 </section></section><section class="section level2"><h2 id="environment-effects">Environment effects<a class="anchor" aria-label="anchor" href="#environment-effects"></a>
@@ -239,23 +239,23 @@ Figure 3: Observations where just basking
 Table 1: Count of number of basking events for each grid.
 </figcaption><div aria-describedby="tbl-bask-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="dyeanqlwaw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#dyeanqlwaw table {
+<div id="rlkpgnynwm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#rlkpgnynwm table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#dyeanqlwaw thead, #dyeanqlwaw tbody, #dyeanqlwaw tfoot, #dyeanqlwaw tr, #dyeanqlwaw td, #dyeanqlwaw th {
+#rlkpgnynwm thead, #rlkpgnynwm tbody, #rlkpgnynwm tfoot, #rlkpgnynwm tr, #rlkpgnynwm td, #rlkpgnynwm th {
   border-style: none;
 }
 
-#dyeanqlwaw p {
+#rlkpgnynwm p {
   margin: 0;
   padding: 0;
 }
 
-#dyeanqlwaw .gt_table {
+#rlkpgnynwm .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -281,12 +281,12 @@ Table 1: Count of number of basking events for each grid.
   border-left-color: #D3D3D3;
 }
 
-#dyeanqlwaw .gt_caption {
+#rlkpgnynwm .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#dyeanqlwaw .gt_title {
+#rlkpgnynwm .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -298,7 +298,7 @@ Table 1: Count of number of basking events for each grid.
   border-bottom-width: 0;
 }
 
-#dyeanqlwaw .gt_subtitle {
+#rlkpgnynwm .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -310,7 +310,7 @@ Table 1: Count of number of basking events for each grid.
   border-top-width: 0;
 }
 
-#dyeanqlwaw .gt_heading {
+#rlkpgnynwm .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -322,13 +322,13 @@ Table 1: Count of number of basking events for each grid.
   border-right-color: #D3D3D3;
 }
 
-#dyeanqlwaw .gt_bottom_border {
+#rlkpgnynwm .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#dyeanqlwaw .gt_col_headings {
+#rlkpgnynwm .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -343,7 +343,7 @@ Table 1: Count of number of basking events for each grid.
   border-right-color: #D3D3D3;
 }
 
-#dyeanqlwaw .gt_col_heading {
+#rlkpgnynwm .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -363,7 +363,7 @@ Table 1: Count of number of basking events for each grid.
   overflow-x: hidden;
 }
 
-#dyeanqlwaw .gt_column_spanner_outer {
+#rlkpgnynwm .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -375,15 +375,15 @@ Table 1: Count of number of basking events for each grid.
   padding-right: 4px;
 }
 
-#dyeanqlwaw .gt_column_spanner_outer:first-child {
+#rlkpgnynwm .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#dyeanqlwaw .gt_column_spanner_outer:last-child {
+#rlkpgnynwm .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#dyeanqlwaw .gt_column_spanner {
+#rlkpgnynwm .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -395,11 +395,11 @@ Table 1: Count of number of basking events for each grid.
   width: 100%;
 }
 
-#dyeanqlwaw .gt_spanner_row {
+#rlkpgnynwm .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#dyeanqlwaw .gt_group_heading {
+#rlkpgnynwm .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -425,7 +425,7 @@ Table 1: Count of number of basking events for each grid.
   text-align: left;
 }
 
-#dyeanqlwaw .gt_empty_group_heading {
+#rlkpgnynwm .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -440,15 +440,15 @@ Table 1: Count of number of basking events for each grid.
   vertical-align: middle;
 }
 
-#dyeanqlwaw .gt_from_md > :first-child {
+#rlkpgnynwm .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#dyeanqlwaw .gt_from_md > :last-child {
+#rlkpgnynwm .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#dyeanqlwaw .gt_row {
+#rlkpgnynwm .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -467,7 +467,7 @@ Table 1: Count of number of basking events for each grid.
   overflow-x: hidden;
 }
 
-#dyeanqlwaw .gt_stub {
+#rlkpgnynwm .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -480,7 +480,7 @@ Table 1: Count of number of basking events for each grid.
   padding-right: 5px;
 }
 
-#dyeanqlwaw .gt_stub_row_group {
+#rlkpgnynwm .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -494,15 +494,15 @@ Table 1: Count of number of basking events for each grid.
   vertical-align: top;
 }
 
-#dyeanqlwaw .gt_row_group_first td {
+#rlkpgnynwm .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#dyeanqlwaw .gt_row_group_first th {
+#rlkpgnynwm .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#dyeanqlwaw .gt_summary_row {
+#rlkpgnynwm .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -512,16 +512,16 @@ Table 1: Count of number of basking events for each grid.
   padding-right: 5px;
 }
 
-#dyeanqlwaw .gt_first_summary_row {
+#rlkpgnynwm .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#dyeanqlwaw .gt_first_summary_row.thick {
+#rlkpgnynwm .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#dyeanqlwaw .gt_last_summary_row {
+#rlkpgnynwm .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -531,7 +531,7 @@ Table 1: Count of number of basking events for each grid.
   border-bottom-color: #D3D3D3;
 }
 
-#dyeanqlwaw .gt_grand_summary_row {
+#rlkpgnynwm .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -541,7 +541,7 @@ Table 1: Count of number of basking events for each grid.
   padding-right: 5px;
 }
 
-#dyeanqlwaw .gt_first_grand_summary_row {
+#rlkpgnynwm .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -551,7 +551,7 @@ Table 1: Count of number of basking events for each grid.
   border-top-color: #D3D3D3;
 }
 
-#dyeanqlwaw .gt_last_grand_summary_row_top {
+#rlkpgnynwm .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -561,11 +561,11 @@ Table 1: Count of number of basking events for each grid.
   border-bottom-color: #D3D3D3;
 }
 
-#dyeanqlwaw .gt_striped {
+#rlkpgnynwm .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#dyeanqlwaw .gt_table_body {
+#rlkpgnynwm .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -574,7 +574,7 @@ Table 1: Count of number of basking events for each grid.
   border-bottom-color: #D3D3D3;
 }
 
-#dyeanqlwaw .gt_footnotes {
+#rlkpgnynwm .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -588,7 +588,7 @@ Table 1: Count of number of basking events for each grid.
   border-right-color: #D3D3D3;
 }
 
-#dyeanqlwaw .gt_footnote {
+#rlkpgnynwm .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -597,7 +597,7 @@ Table 1: Count of number of basking events for each grid.
   padding-right: 5px;
 }
 
-#dyeanqlwaw .gt_sourcenotes {
+#rlkpgnynwm .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -611,7 +611,7 @@ Table 1: Count of number of basking events for each grid.
   border-right-color: #D3D3D3;
 }
 
-#dyeanqlwaw .gt_sourcenote {
+#rlkpgnynwm .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -619,72 +619,72 @@ Table 1: Count of number of basking events for each grid.
   padding-right: 5px;
 }
 
-#dyeanqlwaw .gt_left {
+#rlkpgnynwm .gt_left {
   text-align: left;
 }
 
-#dyeanqlwaw .gt_center {
+#rlkpgnynwm .gt_center {
   text-align: center;
 }
 
-#dyeanqlwaw .gt_right {
+#rlkpgnynwm .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#dyeanqlwaw .gt_font_normal {
+#rlkpgnynwm .gt_font_normal {
   font-weight: normal;
 }
 
-#dyeanqlwaw .gt_font_bold {
+#rlkpgnynwm .gt_font_bold {
   font-weight: bold;
 }
 
-#dyeanqlwaw .gt_font_italic {
+#rlkpgnynwm .gt_font_italic {
   font-style: italic;
 }
 
-#dyeanqlwaw .gt_super {
+#rlkpgnynwm .gt_super {
   font-size: 65%;
 }
 
-#dyeanqlwaw .gt_footnote_marks {
+#rlkpgnynwm .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#dyeanqlwaw .gt_asterisk {
+#rlkpgnynwm .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#dyeanqlwaw .gt_indent_1 {
+#rlkpgnynwm .gt_indent_1 {
   text-indent: 5px;
 }
 
-#dyeanqlwaw .gt_indent_2 {
+#rlkpgnynwm .gt_indent_2 {
   text-indent: 10px;
 }
 
-#dyeanqlwaw .gt_indent_3 {
+#rlkpgnynwm .gt_indent_3 {
   text-indent: 15px;
 }
 
-#dyeanqlwaw .gt_indent_4 {
+#rlkpgnynwm .gt_indent_4 {
   text-indent: 20px;
 }
 
-#dyeanqlwaw .gt_indent_5 {
+#rlkpgnynwm .gt_indent_5 {
   text-indent: 25px;
 }
 
-#dyeanqlwaw .katex-display {
+#rlkpgnynwm .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#dyeanqlwaw div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#rlkpgnynwm div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1026,7 +1026,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>
