@@ -4,10 +4,12 @@
 \alias{read_zoo}
 \title{read_zoo}
 \usage{
-read_zoo(file)
+read_zoo(file, sheet = 1)
 }
 \arguments{
 \item{file}{zoo monitor file}
+
+\item{sheet}{file sheet to use}
 }
 \value{
 tibble with time, X, Y and behaviour

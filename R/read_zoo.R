@@ -4,11 +4,12 @@ utils::globalVariables(
 #' read_zoo
 #'
 #' @param file zoo monitor file
+#' @param sheet file sheet to use
 #'
 #' @return tibble with time, X, Y and behaviour
 #' @export
-read_zoo <- function(file){
-  zoo <- file |> readxl::read_excel()
+read_zoo <- function(file, sheet = 1){
+  zoo <- file |> readxl::read_excel(sheet = sheet)
   zoo <- zoo |>
     dplyr::select(
       time = DateTime,
@@ -29,5 +30,5 @@ read_zoo <- function(file){
 }
 # pacman::p_load(tidyverse, targets)
 # file <- fs::path_package("monitoR", 
-#   "inst/extdata/skinks/2024-05-14-skink-zoo-monitor.xlsx")
-# read_zoo(file) |> print()
+#   "inst/example/example-zoo.xlsx")
+# read_zoo(file, sheet = 2) |> print()

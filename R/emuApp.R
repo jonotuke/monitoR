@@ -10,7 +10,8 @@ emuApp <- function(){
     
     shiny::sidebarLayout(
       shiny::sidebarPanel(
-        shiny::fileInput("zoo_file", "Upload zoo monitor data"),
+        shiny::fileInput("zoo_file", "Upload ZooMonitor data"),
+        shiny::numericInput("sheet", "Sheet number", value = 1),
         shiny::hr(),
         shiny::sliderInput("grid_x", "Grid cols",
         min = 1, max = 10, value = 4),
@@ -118,7 +119,7 @@ emuApp <- function(){
         shiny::req(input$zoo_file)
         ext <- tools::file_ext(input$zoo_file$name)
         switch(ext,
-          xlsx = read_zoo(input$zoo_file$datapath),
+          xlsx = read_zoo(input$zoo_file$datapath, input$sheet),
           shiny::validate("Invalid file; Please upload a .xlsx file")
         )
       })
