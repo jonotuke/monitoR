@@ -42,3 +42,19 @@
 #' }
 #' @source James Brereton
 "skink_grid"
+#' Zoo monitor data for cassowary dataset
+#'
+#' A dataset containing cassowary data
+#'
+#' @format A data frame with 7261 rows and 4 variables:
+#' \describe{
+#' \item{time}{date and time of observation}
+#' \item{X}{x position}
+#' \item{Y}{y position}
+#' \item{behaviour}{observed behaviour}
+#' \item{cassowary}{name of cassowary}
+#' \item{jeffery_side}{side of jeffery}
+#' \item{martina_side}{side of martina}
+#' }
+#' @source Eduardo Fernandez
+"cassowary"

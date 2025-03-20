@@ -3,7 +3,6 @@
 ^LICENSE\.md$
 ^README\.Rmd$
 ^\.github$
-^inst/extdata$
 ^data-raw$
 ^Makefile$
 ^_pkgdown\.yml$
@@ -15,3 +14,5 @@ app.R
 rsconnect
 ^inst/papers$
 2024-monitoR.code-workspace
+^inst/extdata$
+monitoR.code-workspace

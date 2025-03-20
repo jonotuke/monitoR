@@ -1,22 +1,18 @@
 utils::globalVariables(
   c("skink", ".data")
 )
-emuApp <- function(){
-  
+emuApp <- function() {
   # data(skink)
   ui <- shiny::fluidPage(
-    
     shiny::titlePanel("EMU app"),
-    
+
     shiny::sidebarLayout(
       shiny::sidebarPanel(
         shiny::fileInput("zoo_file", "Upload ZooMonitor data"),
         shiny::numericInput("sheet", "Sheet number", value = 1),
         shiny::hr(),
-        shiny::sliderInput("grid_x", "Grid cols",
-        min = 1, max = 10, value = 4),
-        shiny::sliderInput("grid_y", "Grid rows",
-        min = 1, max = 10, value = 4),
+        shiny::sliderInput("grid_x", "Grid cols", min = 1, max = 10, value = 4),
+        shiny::sliderInput("grid_y", "Grid rows", min = 1, max = 10, value = 4),
         shiny::hr(),
         shiny::checkboxGroupInput(
           "behaviour",
@@ -25,17 +21,32 @@ emuApp <- function(){
           selected = unique(skink$behaviour)
         ),
         shiny::hr(),
-        shiny::sliderInput("n_zones", "Number of zones",
-        min = 1, max = 5, value = 2),
+        shiny::sliderInput(
+          "n_zones",
+          "Number of zones",
+          min = 1,
+          max = 5,
+          value = 2
+        ),
         shiny::checkboxInput("zone", "Show zones"),
         shiny::checkboxInput("grid", "Colour points by grid"),
+        shiny::radioButtons(
+          "entropy_calc",
+          "Calculate entopy based on",
+          choices = c("Grid", "Zone"),
+          selected = "Grid"
+        )
       ),
-      
+
       shiny::mainPanel(
         shiny::tabsetPanel(
           shiny::tabPanel(
             "Grid plot",
-            shiny::plotOutput("grid_plot", height = "800px", click = "plot_click")
+            shiny::plotOutput(
+              "grid_plot",
+              height = "800px",
+              click = "plot_click"
+            )
           ),
           shiny::tabPanel(
             "Diversity measures",
@@ -58,7 +69,7 @@ emuApp <- function(){
       )
     )
   )
-  
+
   # SERVER ----
   server <- function(input, output, session) {
     ## UI ----
@@ -66,65 +77,75 @@ emuApp <- function(){
       shiny::updateCheckboxGroupInput(
         inputId = "behaviour",
         choices = unique(zoo()$behaviour),
-        selected = unique(zoo()$behaviour))
-      })
-      ## PLOTS ----
-      output$grid_plot <- shiny::renderPlot({
-        plot_grid(grid$df, zoo_grid_filter(), input$grid, input$zone)
-      })
-      output$entropy_plot <- shiny::renderPlot({
-        plot_entropy(zoo_grid_filter())
-      })
-      output$spi_plot <- shiny::renderPlot({
-        shiny::validate(
-          shiny::need(
-            length(unique(grid$df$zone)) > 1,
-            'Need at least two zones'
-          )
-        )
-        plot_spi(grid$df, zoo_grid_filter())
-      })
-      output$ei_plot <- shiny::renderPlot({
-        shiny::validate(
-          shiny::need(
-            length(unique(grid$df$zone)) > 1,
-            'Best with at least two zones'
-          )
-        )
-        plot_ei(grid$df, zoo_grid_filter())
-      })
-      output$summary_plot <- shiny::renderPlot({
-        plot_summary(zoo_grid_filter())
-      })
-      ## DATA ----
-      grid <- shiny::reactiveValues(df=NULL)
-      shiny::observe({
-        df <- create_grid(
-          range(zoo()$X),
-          range(zoo()$Y),
-          dim = c(input$grid_x,input$grid_y)
-        )
-        grid$df <- df
-      })
-      shiny::observeEvent(input$plot_click, {
-        df <- update_zone(grid$df,
-          input$plot_click$x,
-          input$plot_click$y,
-          input$n_zones)
-          print(df)
-          grid$df <- df
-        }
+        selected = unique(zoo()$behaviour)
       )
-      file_zoo <- shiny::reactive({
-        shiny::req(input$zoo_file)
-        ext <- tools::file_ext(input$zoo_file$name)
-        switch(ext,
-          xlsx = read_zoo(input$zoo_file$datapath, input$sheet),
-          shiny::validate("Invalid file; Please upload a .xlsx file")
+    })
+    ## PLOTS ----
+    output$grid_plot <- shiny::renderPlot({
+      plot_grid(
+        grid$df,
+        zoo_grid_filter(),
+        input$grid,
+        input$zone,
+        label = TRUE
+      )
+    })
+    output$entropy_plot <- shiny::renderPlot({
+      plot_entropy(zoo_grid_filter(), input$entropy_calc)
+    })
+    output$spi_plot <- shiny::renderPlot({
+      shiny::validate(
+        shiny::need(
+          length(unique(grid$df$zone)) > 1,
+          'Need at least two zones'
         )
-      })
-      zoo <- shiny::reactive({
-        tryCatch({
+      )
+      plot_spi(grid$df, zoo_grid_filter())
+    })
+    output$ei_plot <- shiny::renderPlot({
+      shiny::validate(
+        shiny::need(
+          length(unique(grid$df$zone)) > 1,
+          'Best with at least two zones'
+        )
+      )
+      plot_ei(grid$df, zoo_grid_filter())
+    })
+    output$summary_plot <- shiny::renderPlot({
+      plot_summary(zoo_grid_filter())
+    })
+    ## DATA ----
+    grid <- shiny::reactiveValues(df = NULL)
+    shiny::observe({
+      df <- create_grid(
+        range(zoo()$X),
+        range(zoo()$Y),
+        dim = c(input$grid_x, input$grid_y)
+      )
+      grid$df <- df
+    })
+    shiny::observeEvent(input$plot_click, {
+      df <- update_zone(
+        grid$df,
+        input$plot_click$x,
+        input$plot_click$y,
+        input$n_zones
+      )
+      print(df)
+      grid$df <- df
+    })
+    file_zoo <- shiny::reactive({
+      shiny::req(input$zoo_file)
+      ext <- tools::file_ext(input$zoo_file$name)
+      switch(
+        ext,
+        xlsx = read_zoo(input$zoo_file$datapath, input$sheet),
+        shiny::validate("Invalid file; Please upload a .xlsx file")
+      )
+    })
+    zoo <- shiny::reactive({
+      tryCatch(
+        {
           file_zoo()
         },
         shiny.silent.error = function(e) {
@@ -137,25 +158,30 @@ emuApp <- function(){
     })
     zoo_grid_filter <- shiny::reactive({
       zoo_grid() |>
-      dplyr::filter(.data$behaviour %in% input$behaviour)
+        dplyr::filter(.data$behaviour %in% input$behaviour)
     })
     # DEBUG ----
     output$debug <- shiny::renderPrint({
       print(stringr::str_glue("input$zone: {input$zone}"))
       print(stringr::str_glue("input$grid: {input$grid}"))
       print(stringr::str_glue("input$n_zones: {input$n_zones}"))
+      print(stringr::str_glue("input$entropy_calc: {input$entropy_calc}"))
       cat("grid\n")
       print(grid$df)
       cat("Plot click\n")
       print(input$plot_click$x)
       cat("zoo_grid()\n")
       print(length(unique(grid$df$zone)))
+      print(zoo_grid())
+      cat("zoo\n")
+      print(zoo())
+      cat("zoo_grid_filter()\n")
+      print(zoo_grid_filter())
     })
   }
-  
+
   # DRIVER ----
   shiny::shinyApp(ui = ui, server = server)
-  
 }
 # pacman::p_load(conflicted, tidyverse, targets)
-# emuApp()
+# emuApp() |> print()

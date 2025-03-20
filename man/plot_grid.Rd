@@ -4,7 +4,7 @@
 \alias{plot_grid}
 \title{plot_grid}
 \usage{
-plot_grid(grid, zoo, grid_col = FALSE, zone_fill = FALSE)
+plot_grid(grid, zoo, grid_col = FALSE, zone_fill = FALSE, label = TRUE)
 }
 \arguments{
 \item{grid}{grid object}
@@ -14,6 +14,8 @@ plot_grid(grid, zoo, grid_col = FALSE, zone_fill = FALSE)
 \item{grid_col}{fill to show grid name}
 
 \item{zone_fill}{show zone colour}
+
+\item{label}{boolean to show grid labels}
 }
 \value{
 plot of grid on zoo data

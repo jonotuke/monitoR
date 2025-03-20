@@ -4,10 +4,12 @@
 \alias{plot_entropy}
 \title{plot entropy}
 \usage{
-plot_entropy(df)
+plot_entropy(df, calc = "Grid")
 }
 \arguments{
 \item{df}{tibble from get measure}
+
+\item{calc}{whether to plot entropy based on grid or zones.}
 }
 \value{
 plot

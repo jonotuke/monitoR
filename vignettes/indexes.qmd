@@ -89,9 +89,9 @@ obs <- tibble::tibble(
   behaviour = "resting"
 )
 grid <-
-  create_grid(c(0, 200),c(0, 200), c(2,2))
-grid_even <- grid |> dplyr::mutate(zone = c(1,1, 2, 2))
-grid_uneven <- grid |> dplyr::mutate(zone = c(1,2, 2, 1))
+  create_grid(c(0, 200), c(0, 200), c(2, 2))
+grid_even <- grid |> dplyr::mutate(zone = c(1, 1, 2, 2))
+grid_uneven <- grid |> dplyr::mutate(zone = c(1, 2, 2, 1))
 ```
 
 ```{r}
@@ -155,11 +155,12 @@ where $n$ is the number of zones, $r_i$ is the proportion number of observations
 
 Consider the case of even spread (@fig-spi-even), this gives a EI of
 ```{r}
-get_zone_object(grid_even, obs) |> 
-  calc_ei() |> 
-  dplyr::select(zone, ei) |> 
+get_zone_object(grid_even, obs) |>
+  calc_ei() |>
+  dplyr::select(zone, ei) |>
   gt::gt()
-```
+``
+`
 so zero for each zone. 
 While in the case of uneven spread (@fig-spi-uneven), we have an EI of 
 ```{r}
@@ -167,5 +168,6 @@ get_zone_object(grid_uneven, obs) |>
   calc_ei() |> 
   dplyr::select(zone, ei) |> 
   gt::gt()
-```
+`
+``
 Note that -1 indicates no use, and the 0.33 indicates sole use. The 0.33 is $(n-1)/(n+1)$ which goes to 1 as $n$ gets large
