@@ -1,6 +1,7 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://jonotuke.github.io/monitoR/404.html</loc></url>
 <url><loc>https://jonotuke.github.io/monitoR/LICENSE.html</loc></url>
+<url><loc>https://jonotuke.github.io/monitoR/articles/cassowary.html</loc></url>
 <url><loc>https://jonotuke.github.io/monitoR/articles/datasets.html</loc></url>
 <url><loc>https://jonotuke.github.io/monitoR/articles/index.html</loc></url>
 <url><loc>https://jonotuke.github.io/monitoR/articles/indexes.html</loc></url>
@@ -12,6 +13,7 @@
 <url><loc>https://jonotuke.github.io/monitoR/reference/calc_ei.html</loc></url>
 <url><loc>https://jonotuke.github.io/monitoR/reference/calc_entropy.html</loc></url>
 <url><loc>https://jonotuke.github.io/monitoR/reference/calc_spi.html</loc></url>
+<url><loc>https://jonotuke.github.io/monitoR/reference/cassowary.html</loc></url>
 <url><loc>https://jonotuke.github.io/monitoR/reference/count_grid_behaviour.html</loc></url>
 <url><loc>https://jonotuke.github.io/monitoR/reference/create_grid.html</loc></url>
 <url><loc>https://jonotuke.github.io/monitoR/reference/get_entropy_null.html</loc></url>
