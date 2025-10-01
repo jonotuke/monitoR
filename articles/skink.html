@@ -80,7 +80,7 @@
 </h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">skink</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">skink</span>, package <span class="op">=</span> <span class="st">"monitoR"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
@@ -97,7 +97,7 @@
 <p>First we add a 4x4 grid</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_grid.html">create_grid</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">skink</span><span class="op">$</span><span class="va">X</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">skink</span><span class="op">$</span><span class="va">Y</span><span class="op">)</span>, dim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_grid.html">create_grid</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">skink</span><span class="op">$</span><span class="va">X</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">skink</span><span class="op">$</span><span class="va">Y</span><span class="op">)</span>, dim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">skink_grid</span> <span class="op">&lt;-</span> <span class="va">skink</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/add_grid.html">add_grid</a></span><span class="op">(</span><span class="va">grid</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="cell">
@@ -137,28 +137,32 @@ Figure 1: Skink dataset with grid
 <p>To test this, we will create a empirical null distribution based on simulating data with equal spread of grids</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">null_entropy</span> <span class="op">&lt;-</span> <span class="fu">monitoR</span><span class="fu">::</span><span class="fu"><a href="../reference/get_entropy_null.html">get_entropy_null</a></span><span class="op">(</span><span class="va">skink_grid</span><span class="op">$</span><span class="va">grid</span>, n_sims <span class="op">=</span> <span class="fl">1000</span>, n_grid <span class="op">=</span> <span class="fl">16</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">null_entropy</span> <span class="op">&lt;-</span> <span class="fu">monitoR</span><span class="fu">::</span><span class="fu"><a href="../reference/get_entropy_null.html">get_entropy_null</a></span><span class="op">(</span></span>
+<span>  <span class="va">skink_grid</span><span class="op">$</span><span class="va">grid</span>,</span>
+<span>  n_sims <span class="op">=</span> <span class="fl">1000</span>,</span>
+<span>  n_grid <span class="op">=</span> <span class="fl">16</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 </div>
 <p>If we look at the 95% percentiles</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">null_entropy</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.025</span>, <span class="fl">0.975</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;     2.5%    97.5% </span></span>
-<span><span class="co">#&gt; 1.203211 1.203902</span></span></code></pre></div>
+<span><span class="co">#&gt; 1.203235 1.203917</span></span></code></pre></div>
 </div>
 <p>we see that it does not contain the observed value, so the observations are not evenly spread.</p>
 <p><strong>Entropy and behaviour</strong></p>
 <p>Next, we will calculate the entropy for each behaviour (<a href="#fig-BE" class="quarto-xref">Figure 2</a>). In this we see a difference in entropy for different behaviours. For example, the most evenly spread is movement, while foraging is the least spread.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">skink_grid</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">summarise</span><span class="op">(</span>entropy <span class="op">=</span> <span class="fu"><a href="../reference/calc_entropy.html">calc_entropy</a></span><span class="op">(</span><span class="va">grid</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">behaviour</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<code class="sourceCode R"><span><span class="va">skink_grid</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">summarise</span><span class="op">(</span>entropy <span class="op">=</span> <span class="fu"><a href="../reference/calc_entropy.html">calc_entropy</a></span><span class="op">(</span><span class="va">grid</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">behaviour</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">mutate</span><span class="op">(</span></span>
 <span>    behaviour <span class="op">=</span> <span class="fu">fct_reorder</span><span class="op">(</span><span class="va">behaviour</span>, <span class="va">entropy</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">entropy</span>, <span class="va">behaviour</span>, fill <span class="op">=</span> <span class="va">behaviour</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu">geom_col</span><span class="op">(</span>show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu">harrypotter</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/harrypotter/man/scale_hp.html" class="external-link">scale_fill_hp_d</a></span><span class="op">(</span><span class="st">"Ravenclaw"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">entropy</span>, <span class="va">behaviour</span>, fill <span class="op">=</span> <span class="va">behaviour</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_col</span><span class="op">(</span>show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">harrypotter</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/harrypotter/man/scale_hp.html" class="external-link">scale_fill_hp_d</a></span><span class="op">(</span><span class="st">"Ravenclaw"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Entropy"</span>, y <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div id="fig-BE" class="quarto-float quarto-figure quarto-figure-center">
@@ -196,7 +200,7 @@ ESS = \sum^k_{i = 1} (E_i - E_{\bullet})^2,
 <code class="sourceCode R"><span><span class="va">ess_null</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_ess_null.html">get_ess_null</a></span><span class="op">(</span><span class="va">skink_grid</span>, n_sims <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">ess_null</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.025</span>, <span class="fl">0.975</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      2.5%     97.5% </span></span>
-<span><span class="co">#&gt; 0.1748980 0.6871929</span></span></code></pre></div>
+<span><span class="co">#&gt; 0.1377300 0.8483279</span></span></code></pre></div>
 </div>
 <p>So this time we find that the observed ESS is within the 95% empirical confidence interval and so is not surprising.</p>
 </section></section><section class="section level2"><h2 id="environment-effects">Environment effects<a class="anchor" aria-label="anchor" href="#environment-effects"></a>
@@ -208,7 +212,7 @@ ESS = \sum^k_{i = 1} (E_i - E_{\bullet})^2,
 </blockquote>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">skink_bask</span> <span class="op">&lt;-</span> <span class="va">skink_grid</span> <span class="op">|&gt;</span> </span>
+<code class="sourceCode R"><span><span class="va">skink_bask</span> <span class="op">&lt;-</span> <span class="va">skink_grid</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">behaviour</span> <span class="op">==</span> <span class="st">"Basking"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="cell">
@@ -228,8 +232,8 @@ Figure 3: Observations where just basking
 <p><a href="#tbl-bask" class="quarto-xref">Table 1</a> gives the number of times that the skink is seen basking in each grid. As well, we have given the type of environment.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">basking_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/count_grid_behaviour.html">count_grid_behaviour</a></span><span class="op">(</span>grid <span class="op">=</span> <span class="va">grid</span>, <span class="va">skink_bask</span><span class="op">)</span> </span>
-<span><span class="va">basking_df</span> <span class="op">&lt;-</span> <span class="va">basking_df</span> <span class="op">|&gt;</span> </span>
+<code class="sourceCode R"><span><span class="va">basking_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/count_grid_behaviour.html">count_grid_behaviour</a></span><span class="op">(</span>grid <span class="op">=</span> <span class="va">grid</span>, <span class="va">skink_bask</span><span class="op">)</span></span>
+<span><span class="va">basking_df</span> <span class="op">&lt;-</span> <span class="va">basking_df</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">mutate</span><span class="op">(</span></span>
 <span>    environ <span class="op">=</span> <span class="st">"normal"</span></span>
 <span>  <span class="op">)</span></span>
@@ -240,23 +244,23 @@ Figure 3: Observations where just basking
 Table 1: Count of number of basking events for each grid.
 </figcaption><div aria-describedby="tbl-bask-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="sjqnbdcoup" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#sjqnbdcoup table {
+<div id="jdrcutvekw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#jdrcutvekw table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#sjqnbdcoup thead, #sjqnbdcoup tbody, #sjqnbdcoup tfoot, #sjqnbdcoup tr, #sjqnbdcoup td, #sjqnbdcoup th {
+#jdrcutvekw thead, #jdrcutvekw tbody, #jdrcutvekw tfoot, #jdrcutvekw tr, #jdrcutvekw td, #jdrcutvekw th {
   border-style: none;
 }
 
-#sjqnbdcoup p {
+#jdrcutvekw p {
   margin: 0;
   padding: 0;
 }
 
-#sjqnbdcoup .gt_table {
+#jdrcutvekw .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -282,12 +286,12 @@ Table 1: Count of number of basking events for each grid.
   border-left-color: #D3D3D3;
 }
 
-#sjqnbdcoup .gt_caption {
+#jdrcutvekw .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#sjqnbdcoup .gt_title {
+#jdrcutvekw .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -299,7 +303,7 @@ Table 1: Count of number of basking events for each grid.
   border-bottom-width: 0;
 }
 
-#sjqnbdcoup .gt_subtitle {
+#jdrcutvekw .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -311,7 +315,7 @@ Table 1: Count of number of basking events for each grid.
   border-top-width: 0;
 }
 
-#sjqnbdcoup .gt_heading {
+#jdrcutvekw .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -323,13 +327,13 @@ Table 1: Count of number of basking events for each grid.
   border-right-color: #D3D3D3;
 }
 
-#sjqnbdcoup .gt_bottom_border {
+#jdrcutvekw .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#sjqnbdcoup .gt_col_headings {
+#jdrcutvekw .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -344,7 +348,7 @@ Table 1: Count of number of basking events for each grid.
   border-right-color: #D3D3D3;
 }
 
-#sjqnbdcoup .gt_col_heading {
+#jdrcutvekw .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -364,7 +368,7 @@ Table 1: Count of number of basking events for each grid.
   overflow-x: hidden;
 }
 
-#sjqnbdcoup .gt_column_spanner_outer {
+#jdrcutvekw .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -376,15 +380,15 @@ Table 1: Count of number of basking events for each grid.
   padding-right: 4px;
 }
 
-#sjqnbdcoup .gt_column_spanner_outer:first-child {
+#jdrcutvekw .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#sjqnbdcoup .gt_column_spanner_outer:last-child {
+#jdrcutvekw .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#sjqnbdcoup .gt_column_spanner {
+#jdrcutvekw .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -396,11 +400,11 @@ Table 1: Count of number of basking events for each grid.
   width: 100%;
 }
 
-#sjqnbdcoup .gt_spanner_row {
+#jdrcutvekw .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#sjqnbdcoup .gt_group_heading {
+#jdrcutvekw .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -426,7 +430,7 @@ Table 1: Count of number of basking events for each grid.
   text-align: left;
 }
 
-#sjqnbdcoup .gt_empty_group_heading {
+#jdrcutvekw .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -441,15 +445,15 @@ Table 1: Count of number of basking events for each grid.
   vertical-align: middle;
 }
 
-#sjqnbdcoup .gt_from_md > :first-child {
+#jdrcutvekw .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#sjqnbdcoup .gt_from_md > :last-child {
+#jdrcutvekw .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#sjqnbdcoup .gt_row {
+#jdrcutvekw .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -468,7 +472,7 @@ Table 1: Count of number of basking events for each grid.
   overflow-x: hidden;
 }
 
-#sjqnbdcoup .gt_stub {
+#jdrcutvekw .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -481,7 +485,7 @@ Table 1: Count of number of basking events for each grid.
   padding-right: 5px;
 }
 
-#sjqnbdcoup .gt_stub_row_group {
+#jdrcutvekw .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -495,15 +499,15 @@ Table 1: Count of number of basking events for each grid.
   vertical-align: top;
 }
 
-#sjqnbdcoup .gt_row_group_first td {
+#jdrcutvekw .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#sjqnbdcoup .gt_row_group_first th {
+#jdrcutvekw .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#sjqnbdcoup .gt_summary_row {
+#jdrcutvekw .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -513,16 +517,16 @@ Table 1: Count of number of basking events for each grid.
   padding-right: 5px;
 }
 
-#sjqnbdcoup .gt_first_summary_row {
+#jdrcutvekw .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#sjqnbdcoup .gt_first_summary_row.thick {
+#jdrcutvekw .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#sjqnbdcoup .gt_last_summary_row {
+#jdrcutvekw .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -532,7 +536,7 @@ Table 1: Count of number of basking events for each grid.
   border-bottom-color: #D3D3D3;
 }
 
-#sjqnbdcoup .gt_grand_summary_row {
+#jdrcutvekw .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -542,7 +546,7 @@ Table 1: Count of number of basking events for each grid.
   padding-right: 5px;
 }
 
-#sjqnbdcoup .gt_first_grand_summary_row {
+#jdrcutvekw .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -552,7 +556,7 @@ Table 1: Count of number of basking events for each grid.
   border-top-color: #D3D3D3;
 }
 
-#sjqnbdcoup .gt_last_grand_summary_row_top {
+#jdrcutvekw .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -562,11 +566,11 @@ Table 1: Count of number of basking events for each grid.
   border-bottom-color: #D3D3D3;
 }
 
-#sjqnbdcoup .gt_striped {
+#jdrcutvekw .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#sjqnbdcoup .gt_table_body {
+#jdrcutvekw .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -575,7 +579,7 @@ Table 1: Count of number of basking events for each grid.
   border-bottom-color: #D3D3D3;
 }
 
-#sjqnbdcoup .gt_footnotes {
+#jdrcutvekw .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -589,7 +593,7 @@ Table 1: Count of number of basking events for each grid.
   border-right-color: #D3D3D3;
 }
 
-#sjqnbdcoup .gt_footnote {
+#jdrcutvekw .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -598,7 +602,7 @@ Table 1: Count of number of basking events for each grid.
   padding-right: 5px;
 }
 
-#sjqnbdcoup .gt_sourcenotes {
+#jdrcutvekw .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -612,7 +616,7 @@ Table 1: Count of number of basking events for each grid.
   border-right-color: #D3D3D3;
 }
 
-#sjqnbdcoup .gt_sourcenote {
+#jdrcutvekw .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -620,76 +624,76 @@ Table 1: Count of number of basking events for each grid.
   padding-right: 5px;
 }
 
-#sjqnbdcoup .gt_left {
+#jdrcutvekw .gt_left {
   text-align: left;
 }
 
-#sjqnbdcoup .gt_center {
+#jdrcutvekw .gt_center {
   text-align: center;
 }
 
-#sjqnbdcoup .gt_right {
+#jdrcutvekw .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#sjqnbdcoup .gt_font_normal {
+#jdrcutvekw .gt_font_normal {
   font-weight: normal;
 }
 
-#sjqnbdcoup .gt_font_bold {
+#jdrcutvekw .gt_font_bold {
   font-weight: bold;
 }
 
-#sjqnbdcoup .gt_font_italic {
+#jdrcutvekw .gt_font_italic {
   font-style: italic;
 }
 
-#sjqnbdcoup .gt_super {
+#jdrcutvekw .gt_super {
   font-size: 65%;
 }
 
-#sjqnbdcoup .gt_footnote_marks {
+#jdrcutvekw .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#sjqnbdcoup .gt_asterisk {
+#jdrcutvekw .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#sjqnbdcoup .gt_indent_1 {
+#jdrcutvekw .gt_indent_1 {
   text-indent: 5px;
 }
 
-#sjqnbdcoup .gt_indent_2 {
+#jdrcutvekw .gt_indent_2 {
   text-indent: 10px;
 }
 
-#sjqnbdcoup .gt_indent_3 {
+#jdrcutvekw .gt_indent_3 {
   text-indent: 15px;
 }
 
-#sjqnbdcoup .gt_indent_4 {
+#jdrcutvekw .gt_indent_4 {
   text-indent: 20px;
 }
 
-#sjqnbdcoup .gt_indent_5 {
+#jdrcutvekw .gt_indent_5 {
   text-indent: 25px;
 }
 
-#sjqnbdcoup .katex-display {
+#jdrcutvekw .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#sjqnbdcoup div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#jdrcutvekw div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
-<table class="table gt_table do-not-create-environment cell caption-top" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="table gt_table do-not-create-environment cell caption-top" data-quarto-bootstrap="false">
 <thead><tr class="gt_col_headings header">
 <th id="grid" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">grid</th>
 <th id="obs" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">obs</th>
@@ -874,7 +878,7 @@ Figure 6: Neighbourhoods.
 <span><span class="co">#&gt; Residual standard error: 137.3 on 12 degrees of freedom</span></span>
 <span><span class="co">#&gt; Multiple R-squared:  0.5002, Adjusted R-squared:  0.3752 </span></span>
 <span><span class="co">#&gt; F-statistic: 4.003 on 3 and 12 DF,  p-value: 0.03452</span></span>
-<span><span class="va">M2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span><span class="va">M1</span>, <span class="va">.</span><span class="op">~</span><span class="va">.</span> <span class="op">-</span> <span class="va">environ</span><span class="op">:</span><span class="va">neigh</span><span class="op">)</span></span>
+<span><span class="va">M2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span><span class="va">M1</span>, <span class="va">.</span> <span class="op">~</span> <span class="va">.</span> <span class="op">-</span> <span class="va">environ</span><span class="op">:</span><span class="va">neigh</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">M2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Call:</span></span>
@@ -895,7 +899,7 @@ Figure 6: Neighbourhoods.
 <span><span class="co">#&gt; Residual standard error: 146.8 on 13 degrees of freedom</span></span>
 <span><span class="co">#&gt; Multiple R-squared:  0.3817, Adjusted R-squared:  0.2866 </span></span>
 <span><span class="co">#&gt; F-statistic: 4.013 on 2 and 13 DF,  p-value: 0.04391</span></span>
-<span><span class="va">M3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span><span class="va">M2</span>, <span class="va">.</span><span class="op">~</span><span class="va">.</span> <span class="op">-</span> <span class="va">neigh</span><span class="op">)</span></span>
+<span><span class="va">M3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span><span class="va">M2</span>, <span class="va">.</span> <span class="op">~</span> <span class="va">.</span> <span class="op">-</span> <span class="va">neigh</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">M3</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Call:</span></span>
@@ -918,107 +922,89 @@ Figure 6: Neighbourhoods.
 </div>
 <p>So it looks like there is no dependency.</p>
 </section><script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
         }
       }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'light-border',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config);
-  }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
       }
-    } else {
-      return undefined;
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config);
     }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
         });
-        return popup.innerHTML;
-      });
+      }
     }
-  }
-});
-</script></main>
+  });
+  </script></main>
 </div>
 
 
@@ -1027,7 +1013,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer>

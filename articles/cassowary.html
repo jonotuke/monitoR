@@ -72,9 +72,8 @@
 
     <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html" class="external-link">p_load</a></span><span class="op">(</span><span class="va">tidyverse</span>, <span class="va">gt</span><span class="op">)</span></span>
-<span><span class="fu">theme_set</span><span class="op">(</span><span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jonotuke/monitoR" class="external-link">monitoR</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">pacman</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pacman/man/p_load.html" class="external-link">p_load</a></span><span class="op">(</span><span class="va">tidyverse</span>, <span class="va">gt</span>, <span class="va">monitoR</span><span class="op">)</span></span>
+<span><span class="fu">theme_set</span><span class="op">(</span><span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <section class="section level2"><h2 id="load-data">Load data<a class="anchor" aria-label="anchor" href="#load-data"></a>
 </h2>
@@ -102,31 +101,31 @@
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">cassowary</span><span class="op">$</span><span class="va">Y</span><span class="op">)</span>,</span>
 <span>  dim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">4</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span><span class="va">grid</span> <span class="op">&lt;-</span> <span class="va">grid</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">grid</span> <span class="op">&lt;-</span> <span class="va">grid</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">mutate</span><span class="op">(</span></span>
 <span>    left <span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span></span>
-<span>      <span class="va">left</span> <span class="op">==</span> <span class="fl">74</span> <span class="op">~</span> <span class="fl">0</span>, </span>
-<span>      <span class="va">left</span> <span class="op">==</span> <span class="fl">195.25</span> <span class="op">~</span> <span class="fl">150</span>, </span>
-<span>      <span class="va">left</span> <span class="op">==</span> <span class="fl">316.5</span> <span class="op">~</span> <span class="fl">300</span>, </span>
-<span>      <span class="va">left</span> <span class="op">==</span> <span class="fl">437.75</span> <span class="op">~</span> <span class="fl">450</span>, </span>
+<span>      <span class="va">left</span> <span class="op">==</span> <span class="fl">74</span> <span class="op">~</span> <span class="fl">0</span>,</span>
+<span>      <span class="va">left</span> <span class="op">==</span> <span class="fl">195.25</span> <span class="op">~</span> <span class="fl">150</span>,</span>
+<span>      <span class="va">left</span> <span class="op">==</span> <span class="fl">316.5</span> <span class="op">~</span> <span class="fl">300</span>,</span>
+<span>      <span class="va">left</span> <span class="op">==</span> <span class="fl">437.75</span> <span class="op">~</span> <span class="fl">450</span>,</span>
 <span>      <span class="cn">TRUE</span> <span class="op">~</span> <span class="va">left</span></span>
 <span>    <span class="op">)</span>,</span>
 <span>    right <span class="op">=</span> <span class="fu">case_when</span><span class="op">(</span></span>
-<span>      <span class="va">right</span> <span class="op">==</span> <span class="fl">74</span> <span class="op">~</span> <span class="fl">0</span>, </span>
-<span>      <span class="va">right</span> <span class="op">==</span> <span class="fl">195.25</span> <span class="op">~</span> <span class="fl">150</span>, </span>
-<span>      <span class="va">right</span> <span class="op">==</span> <span class="fl">316.5</span> <span class="op">~</span> <span class="fl">300</span>, </span>
-<span>      <span class="va">right</span> <span class="op">==</span> <span class="fl">437.75</span> <span class="op">~</span> <span class="fl">450</span>, </span>
-<span>      <span class="va">right</span> <span class="op">==</span> <span class="fl">559</span> <span class="op">~</span> <span class="fl">600</span>, </span>
+<span>      <span class="va">right</span> <span class="op">==</span> <span class="fl">74</span> <span class="op">~</span> <span class="fl">0</span>,</span>
+<span>      <span class="va">right</span> <span class="op">==</span> <span class="fl">195.25</span> <span class="op">~</span> <span class="fl">150</span>,</span>
+<span>      <span class="va">right</span> <span class="op">==</span> <span class="fl">316.5</span> <span class="op">~</span> <span class="fl">300</span>,</span>
+<span>      <span class="va">right</span> <span class="op">==</span> <span class="fl">437.75</span> <span class="op">~</span> <span class="fl">450</span>,</span>
+<span>      <span class="va">right</span> <span class="op">==</span> <span class="fl">559</span> <span class="op">~</span> <span class="fl">600</span>,</span>
 <span>      <span class="cn">TRUE</span> <span class="op">~</span> <span class="va">right</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="va">grid</span><span class="op">$</span><span class="va">zone</span> <span class="op">&lt;-</span> <span class="st">"right"</span></span>
-<span><span class="va">grid</span><span class="op">$</span><span class="va">zone</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">5</span>,<span class="fl">6</span>,<span class="fl">9</span>,<span class="fl">10</span>,<span class="fl">13</span>,<span class="fl">14</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"left"</span></span>
+<span><span class="va">grid</span><span class="op">$</span><span class="va">zone</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">5</span>, <span class="fl">6</span>, <span class="fl">9</span>, <span class="fl">10</span>, <span class="fl">13</span>, <span class="fl">14</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"left"</span></span>
 <span><span class="va">cassowary_grid</span> <span class="op">&lt;-</span> <span class="va">cassowary</span> <span class="op">|&gt;</span> <span class="fu"><a href="../reference/add_grid.html">add_grid</a></span><span class="op">(</span><span class="va">grid</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_grid.html">plot_grid</a></span><span class="op">(</span><span class="va">grid</span>, <span class="va">cassowary_grid</span>, zone_fill <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> </span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_grid.html">plot_grid</a></span><span class="op">(</span><span class="va">grid</span>, <span class="va">cassowary_grid</span>, zone_fill <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme</span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div id="fig-grid" class="quarto-float quarto-figure quarto-figure-center">
@@ -144,9 +143,9 @@ Figure 1: Grid plot the cassowary dataset.
 <p>We have two cassowaries - Martina and Jeffrey. They are let out into on of the sides. We have information about which side they are in.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">martina</span> <span class="op">&lt;-</span> <span class="va">cassowary_grid</span> <span class="op">|&gt;</span> </span>
+<code class="sourceCode R"><span><span class="va">martina</span> <span class="op">&lt;-</span> <span class="va">cassowary_grid</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">cassowary</span> <span class="op">==</span> <span class="st">"Martina"</span><span class="op">)</span></span>
-<span><span class="va">jeffrey</span> <span class="op">&lt;-</span> <span class="va">cassowary_grid</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">jeffrey</span> <span class="op">&lt;-</span> <span class="va">cassowary_grid</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">cassowary</span> <span class="op">==</span> <span class="st">"Jeffrey"</span><span class="op">)</span></span>
 <span><span class="va">jeffrey</span></span>
 <span><span class="co">#&gt; # A tibble: 2,174 × 9</span></span>
@@ -178,13 +177,15 @@ Figure 1: Grid plot the cassowary dataset.
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html" class="external-link">geom_rect</a></span><span class="op">(</span></span>
 <span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>xmin <span class="op">=</span> <span class="va">left</span>, xmax <span class="op">=</span> <span class="va">right</span>, ymin <span class="op">=</span> <span class="va">bottom</span>, ymax <span class="op">=</span> <span class="va">top</span><span class="op">)</span>,</span>
-<span>    col <span class="op">=</span> <span class="st">"black"</span>, alpha <span class="op">=</span> <span class="fl">0.1</span>, fill <span class="op">=</span> <span class="cn">NA</span></span>
+<span>    col <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>    alpha <span class="op">=</span> <span class="fl">0.1</span>,</span>
+<span>    fill <span class="op">=</span> <span class="cn">NA</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span></span>
 <span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">X</span>, <span class="va">Y</span>, col <span class="op">=</span> <span class="va">martina_side</span><span class="op">)</span>,</span>
 <span>    data <span class="op">=</span> <span class="va">martina</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu">harrypotter</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/harrypotter/man/scale_hp.html" class="external-link">scale_colour_hp_d</a></span><span class="op">(</span><span class="st">"Ravenclaw"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">harrypotter</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/harrypotter/man/scale_hp.html" class="external-link">scale_colour_hp_d</a></span><span class="op">(</span><span class="st">"Ravenclaw"</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div id="fig-martina" class="quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-fig"><div aria-describedby="fig-martina-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -202,13 +203,15 @@ Figure 2: Martina data
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html" class="external-link">geom_rect</a></span><span class="op">(</span></span>
 <span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>xmin <span class="op">=</span> <span class="va">left</span>, xmax <span class="op">=</span> <span class="va">right</span>, ymin <span class="op">=</span> <span class="va">bottom</span>, ymax <span class="op">=</span> <span class="va">top</span><span class="op">)</span>,</span>
-<span>    col <span class="op">=</span> <span class="st">"black"</span>, alpha <span class="op">=</span> <span class="fl">0.1</span>, fill <span class="op">=</span> <span class="cn">NA</span></span>
+<span>    col <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>    alpha <span class="op">=</span> <span class="fl">0.1</span>,</span>
+<span>    fill <span class="op">=</span> <span class="cn">NA</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span></span>
 <span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">X</span>, <span class="va">Y</span>, col <span class="op">=</span> <span class="va">jeffery_side</span><span class="op">)</span>,</span>
 <span>    data <span class="op">=</span> <span class="va">jeffrey</span></span>
-<span>  <span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu">harrypotter</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/harrypotter/man/scale_hp.html" class="external-link">scale_colour_hp_d</a></span><span class="op">(</span><span class="st">"Ravenclaw"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">harrypotter</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/harrypotter/man/scale_hp.html" class="external-link">scale_colour_hp_d</a></span><span class="op">(</span><span class="st">"Ravenclaw"</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div id="fig-jeffrey" class="quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-fig"><div aria-describedby="fig-jeffrey-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -223,23 +226,24 @@ Figure 3: Jeffrey data
 <p><a href="#fig-prop-left" class="quarto-xref">Figure 4</a> gives the proportion of time that each cassowary is in each grid for the left side.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cassowary_grid</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">zone</span> <span class="op">==</span> <span class="st">"left"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">count</span><span class="op">(</span><span class="va">grid</span>, <span class="va">cassowary</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<code class="sourceCode R"><span><span class="va">cassowary_grid</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">zone</span> <span class="op">==</span> <span class="st">"left"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">count</span><span class="op">(</span><span class="va">grid</span>, <span class="va">cassowary</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">mutate</span><span class="op">(</span></span>
-<span>    N <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">cassowary</span>, </span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">mutate</span><span class="op">(</span></span>
-<span>    p <span class="op">=</span> <span class="va">n</span> <span class="op">/</span> <span class="va">N</span>, </span>
+<span>    N <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>,</span>
+<span>    .by <span class="op">=</span> <span class="va">cassowary</span>,</span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span></span>
+<span>    p <span class="op">=</span> <span class="va">n</span> <span class="op">/</span> <span class="va">N</span>,</span>
 <span>    grid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span></span>
-<span>      <span class="va">grid</span>, </span>
-<span>      levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">13</span>, <span class="fl">14</span>, <span class="fl">15</span>, <span class="fl">16</span>, <span class="fl">9</span>, <span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">12</span>, </span>
-<span>    <span class="fl">5</span>, <span class="fl">6</span>, <span class="fl">7</span>, <span class="fl">8</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span></span>
+<span>      <span class="va">grid</span>,</span>
+<span>      levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">13</span>, <span class="fl">14</span>, <span class="fl">15</span>, <span class="fl">16</span>, <span class="fl">9</span>, <span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">12</span>, <span class="fl">5</span>, <span class="fl">6</span>, <span class="fl">7</span>, <span class="fl">8</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>    <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">cassowary</span>, <span class="va">p</span>, fill <span class="op">=</span> <span class="va">cassowary</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu">geom_col</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">grid</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu">harrypotter</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/harrypotter/man/scale_hp.html" class="external-link">scale_fill_hp_d</a></span><span class="op">(</span><span class="st">"Ravenclaw"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">cassowary</span>, <span class="va">p</span>, fill <span class="op">=</span> <span class="va">cassowary</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_col</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">grid</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">harrypotter</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/harrypotter/man/scale_hp.html" class="external-link">scale_fill_hp_d</a></span><span class="op">(</span><span class="st">"Ravenclaw"</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div id="fig-prop-left" class="quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-fig"><div aria-describedby="fig-prop-left-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -253,23 +257,24 @@ Figure 4: Proportion of time in each grid
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cassowary_grid</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">zone</span> <span class="op">==</span> <span class="st">"right"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">count</span><span class="op">(</span><span class="va">grid</span>, <span class="va">cassowary</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<code class="sourceCode R"><span><span class="va">cassowary_grid</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">zone</span> <span class="op">==</span> <span class="st">"right"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">count</span><span class="op">(</span><span class="va">grid</span>, <span class="va">cassowary</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">mutate</span><span class="op">(</span></span>
-<span>    N <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>, .by <span class="op">=</span> <span class="va">cassowary</span>, </span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">mutate</span><span class="op">(</span></span>
-<span>    p <span class="op">=</span> <span class="va">n</span> <span class="op">/</span> <span class="va">N</span>, </span>
+<span>    N <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>,</span>
+<span>    .by <span class="op">=</span> <span class="va">cassowary</span>,</span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span></span>
+<span>    p <span class="op">=</span> <span class="va">n</span> <span class="op">/</span> <span class="va">N</span>,</span>
 <span>    grid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span></span>
-<span>      <span class="va">grid</span>, </span>
-<span>      levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">13</span>, <span class="fl">14</span>, <span class="fl">15</span>, <span class="fl">16</span>, <span class="fl">9</span>, <span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">12</span>, </span>
-<span>    <span class="fl">5</span>, <span class="fl">6</span>, <span class="fl">7</span>, <span class="fl">8</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span></span>
+<span>      <span class="va">grid</span>,</span>
+<span>      levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">13</span>, <span class="fl">14</span>, <span class="fl">15</span>, <span class="fl">16</span>, <span class="fl">9</span>, <span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">12</span>, <span class="fl">5</span>, <span class="fl">6</span>, <span class="fl">7</span>, <span class="fl">8</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>    <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">cassowary</span>, <span class="va">p</span>, fill <span class="op">=</span> <span class="va">cassowary</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu">geom_col</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">grid</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>    <span class="fu">harrypotter</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/harrypotter/man/scale_hp.html" class="external-link">scale_fill_hp_d</a></span><span class="op">(</span><span class="st">"Ravenclaw"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">cassowary</span>, <span class="va">p</span>, fill <span class="op">=</span> <span class="va">cassowary</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_col</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">grid</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">harrypotter</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/harrypotter/man/scale_hp.html" class="external-link">scale_fill_hp_d</a></span><span class="op">(</span><span class="st">"Ravenclaw"</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <div id="fig-prop-right" class="quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-fig"><div aria-describedby="fig-prop-right-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -288,33 +293,33 @@ Figure 5: Proportion of time in each grid
 <p>We see that Martina utilises more of the grid than Jeffrey (<a href="#tbl-ent" class="quarto-xref">Table 1</a>)</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cassowary_grid</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">cassowary</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">summarise</span><span class="op">(</span>entropy <span class="op">=</span> <span class="fu"><a href="../reference/calc_entropy.html">calc_entropy</a></span><span class="op">(</span><span class="va">grid</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">gt</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<code class="sourceCode R"><span><span class="va">cassowary_grid</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">cassowary</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">summarise</span><span class="op">(</span>entropy <span class="op">=</span> <span class="fu"><a href="../reference/calc_entropy.html">calc_entropy</a></span><span class="op">(</span><span class="va">grid</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">gt</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">fmt_number</span><span class="op">(</span>decimals <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
 <div id="tbl-ent" class="cell quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-tbl"><figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table 1: Entropy for each cassowary
 </figcaption><div aria-describedby="tbl-ent-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="pjddrtfupn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#pjddrtfupn table {
+<div id="vgqsnlizvh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#vgqsnlizvh table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#pjddrtfupn thead, #pjddrtfupn tbody, #pjddrtfupn tfoot, #pjddrtfupn tr, #pjddrtfupn td, #pjddrtfupn th {
+#vgqsnlizvh thead, #vgqsnlizvh tbody, #vgqsnlizvh tfoot, #vgqsnlizvh tr, #vgqsnlizvh td, #vgqsnlizvh th {
   border-style: none;
 }
 
-#pjddrtfupn p {
+#vgqsnlizvh p {
   margin: 0;
   padding: 0;
 }
 
-#pjddrtfupn .gt_table {
+#vgqsnlizvh .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -340,12 +345,12 @@ Table 1: Entropy for each cassowary
   border-left-color: #D3D3D3;
 }
 
-#pjddrtfupn .gt_caption {
+#vgqsnlizvh .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#pjddrtfupn .gt_title {
+#vgqsnlizvh .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -357,7 +362,7 @@ Table 1: Entropy for each cassowary
   border-bottom-width: 0;
 }
 
-#pjddrtfupn .gt_subtitle {
+#vgqsnlizvh .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -369,7 +374,7 @@ Table 1: Entropy for each cassowary
   border-top-width: 0;
 }
 
-#pjddrtfupn .gt_heading {
+#vgqsnlizvh .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -381,13 +386,13 @@ Table 1: Entropy for each cassowary
   border-right-color: #D3D3D3;
 }
 
-#pjddrtfupn .gt_bottom_border {
+#vgqsnlizvh .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#pjddrtfupn .gt_col_headings {
+#vgqsnlizvh .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -402,7 +407,7 @@ Table 1: Entropy for each cassowary
   border-right-color: #D3D3D3;
 }
 
-#pjddrtfupn .gt_col_heading {
+#vgqsnlizvh .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -422,7 +427,7 @@ Table 1: Entropy for each cassowary
   overflow-x: hidden;
 }
 
-#pjddrtfupn .gt_column_spanner_outer {
+#vgqsnlizvh .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -434,15 +439,15 @@ Table 1: Entropy for each cassowary
   padding-right: 4px;
 }
 
-#pjddrtfupn .gt_column_spanner_outer:first-child {
+#vgqsnlizvh .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#pjddrtfupn .gt_column_spanner_outer:last-child {
+#vgqsnlizvh .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#pjddrtfupn .gt_column_spanner {
+#vgqsnlizvh .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -454,11 +459,11 @@ Table 1: Entropy for each cassowary
   width: 100%;
 }
 
-#pjddrtfupn .gt_spanner_row {
+#vgqsnlizvh .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#pjddrtfupn .gt_group_heading {
+#vgqsnlizvh .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -484,7 +489,7 @@ Table 1: Entropy for each cassowary
   text-align: left;
 }
 
-#pjddrtfupn .gt_empty_group_heading {
+#vgqsnlizvh .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -499,15 +504,15 @@ Table 1: Entropy for each cassowary
   vertical-align: middle;
 }
 
-#pjddrtfupn .gt_from_md > :first-child {
+#vgqsnlizvh .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#pjddrtfupn .gt_from_md > :last-child {
+#vgqsnlizvh .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#pjddrtfupn .gt_row {
+#vgqsnlizvh .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -526,7 +531,7 @@ Table 1: Entropy for each cassowary
   overflow-x: hidden;
 }
 
-#pjddrtfupn .gt_stub {
+#vgqsnlizvh .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -539,7 +544,7 @@ Table 1: Entropy for each cassowary
   padding-right: 5px;
 }
 
-#pjddrtfupn .gt_stub_row_group {
+#vgqsnlizvh .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -553,15 +558,15 @@ Table 1: Entropy for each cassowary
   vertical-align: top;
 }
 
-#pjddrtfupn .gt_row_group_first td {
+#vgqsnlizvh .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#pjddrtfupn .gt_row_group_first th {
+#vgqsnlizvh .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#pjddrtfupn .gt_summary_row {
+#vgqsnlizvh .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -571,16 +576,16 @@ Table 1: Entropy for each cassowary
   padding-right: 5px;
 }
 
-#pjddrtfupn .gt_first_summary_row {
+#vgqsnlizvh .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#pjddrtfupn .gt_first_summary_row.thick {
+#vgqsnlizvh .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#pjddrtfupn .gt_last_summary_row {
+#vgqsnlizvh .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -590,7 +595,7 @@ Table 1: Entropy for each cassowary
   border-bottom-color: #D3D3D3;
 }
 
-#pjddrtfupn .gt_grand_summary_row {
+#vgqsnlizvh .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -600,7 +605,7 @@ Table 1: Entropy for each cassowary
   padding-right: 5px;
 }
 
-#pjddrtfupn .gt_first_grand_summary_row {
+#vgqsnlizvh .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -610,7 +615,7 @@ Table 1: Entropy for each cassowary
   border-top-color: #D3D3D3;
 }
 
-#pjddrtfupn .gt_last_grand_summary_row_top {
+#vgqsnlizvh .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -620,11 +625,11 @@ Table 1: Entropy for each cassowary
   border-bottom-color: #D3D3D3;
 }
 
-#pjddrtfupn .gt_striped {
+#vgqsnlizvh .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#pjddrtfupn .gt_table_body {
+#vgqsnlizvh .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -633,7 +638,7 @@ Table 1: Entropy for each cassowary
   border-bottom-color: #D3D3D3;
 }
 
-#pjddrtfupn .gt_footnotes {
+#vgqsnlizvh .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -647,7 +652,7 @@ Table 1: Entropy for each cassowary
   border-right-color: #D3D3D3;
 }
 
-#pjddrtfupn .gt_footnote {
+#vgqsnlizvh .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -656,7 +661,7 @@ Table 1: Entropy for each cassowary
   padding-right: 5px;
 }
 
-#pjddrtfupn .gt_sourcenotes {
+#vgqsnlizvh .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -670,7 +675,7 @@ Table 1: Entropy for each cassowary
   border-right-color: #D3D3D3;
 }
 
-#pjddrtfupn .gt_sourcenote {
+#vgqsnlizvh .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -678,76 +683,76 @@ Table 1: Entropy for each cassowary
   padding-right: 5px;
 }
 
-#pjddrtfupn .gt_left {
+#vgqsnlizvh .gt_left {
   text-align: left;
 }
 
-#pjddrtfupn .gt_center {
+#vgqsnlizvh .gt_center {
   text-align: center;
 }
 
-#pjddrtfupn .gt_right {
+#vgqsnlizvh .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#pjddrtfupn .gt_font_normal {
+#vgqsnlizvh .gt_font_normal {
   font-weight: normal;
 }
 
-#pjddrtfupn .gt_font_bold {
+#vgqsnlizvh .gt_font_bold {
   font-weight: bold;
 }
 
-#pjddrtfupn .gt_font_italic {
+#vgqsnlizvh .gt_font_italic {
   font-style: italic;
 }
 
-#pjddrtfupn .gt_super {
+#vgqsnlizvh .gt_super {
   font-size: 65%;
 }
 
-#pjddrtfupn .gt_footnote_marks {
+#vgqsnlizvh .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#pjddrtfupn .gt_asterisk {
+#vgqsnlizvh .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#pjddrtfupn .gt_indent_1 {
+#vgqsnlizvh .gt_indent_1 {
   text-indent: 5px;
 }
 
-#pjddrtfupn .gt_indent_2 {
+#vgqsnlizvh .gt_indent_2 {
   text-indent: 10px;
 }
 
-#pjddrtfupn .gt_indent_3 {
+#vgqsnlizvh .gt_indent_3 {
   text-indent: 15px;
 }
 
-#pjddrtfupn .gt_indent_4 {
+#vgqsnlizvh .gt_indent_4 {
   text-indent: 20px;
 }
 
-#pjddrtfupn .gt_indent_5 {
+#vgqsnlizvh .gt_indent_5 {
   text-indent: 25px;
 }
 
-#pjddrtfupn .katex-display {
+#vgqsnlizvh .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#pjddrtfupn div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#vgqsnlizvh div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
-<table class="table gt_table do-not-create-environment cell caption-top" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="table gt_table do-not-create-environment cell caption-top" data-quarto-bootstrap="false">
 <thead><tr class="gt_col_headings header">
 <th id="cassowary" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">cassowary</th>
 <th id="entropy" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">entropy</th>
@@ -772,19 +777,19 @@ Table 1: Entropy for each cassowary
 <p><a href="#fig-b-ent" class="quarto-xref">Figure 6</a> gives the entropy for each behaviour for each cassowary.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cassowary_grid</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">cassowary</span>, <span class="va">behaviour</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">summarise</span><span class="op">(</span>entropy <span class="op">=</span> <span class="fu"><a href="../reference/calc_entropy.html">calc_entropy</a></span><span class="op">(</span><span class="va">grid</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">entropy</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">behaviour</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>m <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">entropy</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">ungroup</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<code class="sourceCode R"><span><span class="va">cassowary_grid</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">cassowary</span>, <span class="va">behaviour</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">summarise</span><span class="op">(</span>entropy <span class="op">=</span> <span class="fu"><a href="../reference/calc_entropy.html">calc_entropy</a></span><span class="op">(</span><span class="va">grid</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">entropy</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">behaviour</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>m <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">entropy</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">ungroup</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">mutate</span><span class="op">(</span></span>
 <span>    behaviour <span class="op">=</span> <span class="fu">fct_reorder</span><span class="op">(</span><span class="va">behaviour</span>, <span class="va">m</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">entropy</span>, <span class="va">behaviour</span>, fill <span class="op">=</span> <span class="va">cassowary</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu">geom_col</span><span class="op">(</span>position <span class="op">=</span> <span class="st">"dodge"</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu">harrypotter</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/harrypotter/man/scale_hp.html" class="external-link">scale_fill_hp_d</a></span><span class="op">(</span><span class="st">"Ravenclaw"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">entropy</span>, <span class="va">behaviour</span>, fill <span class="op">=</span> <span class="va">cassowary</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_col</span><span class="op">(</span>position <span class="op">=</span> <span class="st">"dodge"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">harrypotter</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/harrypotter/man/scale_hp.html" class="external-link">scale_fill_hp_d</a></span><span class="op">(</span><span class="st">"Ravenclaw"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Entropy"</span>, y <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
 <span><span class="co">#&gt; `summarise()` has grouped output by 'cassowary'. You can override using the</span></span>
 <span><span class="co">#&gt; `.groups` argument.</span></span></code></pre></div>
@@ -819,107 +824,89 @@ Figure 6: Behaviour entropy
 <span><span class="co">#&gt; [1] 0.2594296</span></span></code></pre></div>
 </div>
 </section></section><script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
         }
       }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'light-border',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config);
-  }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
       }
-    } else {
-      return undefined;
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config);
     }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
         });
-        return popup.innerHTML;
-      });
+      }
     }
-  }
-});
-</script></main>
+  });
+  </script></main>
 </div>
 
 
@@ -928,7 +915,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer>
