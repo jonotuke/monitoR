@@ -1,7 +1,7 @@
 utils::globalVariables(
   c("grid")
 )
-get_break_pts <- function(range_x, n = 4){
+get_break_pts <- function(range_x, n = 4) {
   x0 <- range_x[1]
   xn <- range_x[2]
   L <- (xn - x0) / n
@@ -9,12 +9,12 @@ get_break_pts <- function(range_x, n = 4){
   pts <- x0 + 0:(n) * L
   pts
 }
-convert_xy_grid <- function(x, y, gx){
-  grid <- (y-1) * gx + x
+convert_xy_grid <- function(x, y, gx) {
+  grid <- (y - 1) * gx + x
 }
 #' create_grid
 #'
-#' Takes an x-range and a y-range, a grid size and returns the grid information. 
+#' Takes an x-range and a y-range, a grid size and returns the grid information.
 #' @param x_range size 2 vector with min and max x-range
 #' @param y_range size 2 vector with min and max y-range
 #' @param dim size 2 vector (n rows, n cols)
@@ -35,8 +35,7 @@ convert_xy_grid <- function(x, y, gx){
 #'   dim = c(4,4),
 #'   zone
 #' )
-create_grid <- function(x_range, y_range,
-                        dim = c(4,4), zone = NULL){
+create_grid <- function(x_range, y_range, dim = c(4, 4), zone = NULL) {
   X_df <-
     tibble::tibble(
       X = 1:dim[1],
@@ -55,7 +54,7 @@ create_grid <- function(x_range, y_range,
     ) |>
     dplyr::arrange(grid) |>
     dplyr::select(grid, X, Y, dplyr::everything())
-  if(is.null(zone)){
+  if (is.null(zone)) {
     df <- df |>
       dplyr::mutate(
         zone = 1
@@ -75,6 +74,6 @@ create_grid <- function(x_range, y_range,
 # create_grid(
 #   range(skink$X),
 #   range(skink$Y),
-#   dim = c(4,4),
+#   dim = c(4, 4),
 #   zone
 # )

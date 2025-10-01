@@ -58,3 +58,16 @@
 #' }
 #' @source Eduardo Fernandez
 "cassowary"
+#' Zoo monitor data for skink
+#'
+#' A dataset containing skink data
+#'
+#' @format A data frame with 15201 rows and 4 variables:
+#' \describe{
+#' \item{DateTime}{date and time of observation}
+#' \item{Space Use Coordinate X}{x position}
+#' \item{Space Use Coordinate Y}{y position}
+#' \item{Interval Channel 1 Value}{observed behaviour}
+#' }
+#' @source James Brereton
+"skink_raw"

@@ -1,5 +1,4 @@
 ## code to prepare `skink` dataset goes here
-file <- fs::path_package("monitoR", 
-  "inst/extdata/skinks/2024-05-14-skink-zoo-monitor.xlsx")
-skink <- read_zoo(file)
+data(skink_raw)
+skink <- clean_zoo(skink_raw)
 usethis::use_data(skink, overwrite = TRUE)

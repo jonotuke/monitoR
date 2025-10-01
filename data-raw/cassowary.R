@@ -24,8 +24,7 @@ cassowary <- cassowary |>
 cassowary <- cassowary |>
   dplyr::filter(!is.na(X)) |>
   dplyr::filter(!is.na(Y)) |>
-  dplyr::filter(!is.na(behaviour)) |> 
+  dplyr::filter(!is.na(behaviour)) |>
   dplyr::filter(!is.na(jeffery_side))
 cassowary
 usethis::use_data(cassowary, overwrite = TRUE)
-

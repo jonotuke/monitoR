@@ -12,7 +12,7 @@ read_zoo(file, sheet = 1)
 \item{sheet}{file sheet to use}
 }
 \value{
-tibble with time, X, Y and behaviour
+returns a tibble with all the data in file
 }
 \description{
 read_zoo

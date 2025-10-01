@@ -144,6 +144,7 @@ get_zone_object(grid_uneven, obs) |> calc_spi()
 
 # Electivity Index
 From @brereton-2022, we have
+
 $$
 E = \frac{W_i - 1/n}{W_i + 1/n}, 
 $$
@@ -159,15 +160,16 @@ get_zone_object(grid_even, obs) |>
   calc_ei() |>
   dplyr::select(zone, ei) |>
   gt::gt()
-``
-`
+```
+
 so zero for each zone. 
 While in the case of uneven spread (@fig-spi-uneven), we have an EI of 
+
 ```{r}
-get_zone_object(grid_uneven, obs) |> 
-  calc_ei() |> 
-  dplyr::select(zone, ei) |> 
+get_zone_object(grid_uneven, obs) |>
+  calc_ei() |>
+  dplyr::select(zone, ei) |>
   gt::gt()
-`
-``
+```
+
 Note that -1 indicates no use, and the 0.33 indicates sole use. The 0.33 is $(n-1)/(n+1)$ which goes to 1 as $n$ gets large

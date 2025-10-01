@@ -15,9 +15,8 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-pacman::p_load(tidyverse, gt)
+pacman::p_load(tidyverse, gt, monitoR)
 theme_set(theme_bw())
-library(monitoR)
 ```
 
 # Load data
@@ -36,33 +35,33 @@ grid <- create_grid(
   range(cassowary$Y),
   dim = c(4, 4)
 )
-grid <- grid |> 
+grid <- grid |>
   mutate(
     left = case_when(
-      left == 74 ~ 0, 
-      left == 195.25 ~ 150, 
-      left == 316.5 ~ 300, 
-      left == 437.75 ~ 450, 
+      left == 74 ~ 0,
+      left == 195.25 ~ 150,
+      left == 316.5 ~ 300,
+      left == 437.75 ~ 450,
       TRUE ~ left
     ),
     right = case_when(
-      right == 74 ~ 0, 
-      right == 195.25 ~ 150, 
-      right == 316.5 ~ 300, 
-      right == 437.75 ~ 450, 
-      right == 559 ~ 600, 
+      right == 74 ~ 0,
+      right == 195.25 ~ 150,
+      right == 316.5 ~ 300,
+      right == 437.75 ~ 450,
+      right == 559 ~ 600,
       TRUE ~ right
     )
   )
 grid$zone <- "right"
-grid$zone[c(1,2,5,6,9,10,13,14)] <- "left"
+grid$zone[c(1, 2, 5, 6, 9, 10, 13, 14)] <- "left"
 cassowary_grid <- cassowary |> add_grid(grid)
 ```
 
 ```{r}
-#| fig-cap: Grid plot the cassowary dataset. 
+#| fig-cap: Grid plot the cassowary dataset.
 #| label: fig-grid
-plot_grid(grid, cassowary_grid, zone_fill = TRUE) + 
+plot_grid(grid, cassowary_grid, zone_fill = TRUE) +
   theme(legend.position = "none")
 ```
 
@@ -70,9 +69,9 @@ plot_grid(grid, cassowary_grid, zone_fill = TRUE) +
 We have two cassowaries - Martina and Jeffrey. They are let out into on of the sides. We have information about which side they are in. 
 
 ```{r}
-martina <- cassowary_grid |> 
+martina <- cassowary_grid |>
   filter(cassowary == "Martina")
-jeffrey <- cassowary_grid |> 
+jeffrey <- cassowary_grid |>
   filter(cassowary == "Jeffrey")
 jeffrey
 ```
@@ -90,13 +89,15 @@ grid |>
   ggplot2::ggplot() +
   ggplot2::geom_rect(
     ggplot2::aes(xmin = left, xmax = right, ymin = bottom, ymax = top),
-    col = "black", alpha = 0.1, fill = NA
+    col = "black",
+    alpha = 0.1,
+    fill = NA
   ) +
   ggplot2::geom_point(
     ggplot2::aes(X, Y, col = martina_side),
     data = martina
-  ) + 
-    harrypotter::scale_colour_hp_d("Ravenclaw")
+  ) +
+  harrypotter::scale_colour_hp_d("Ravenclaw")
 ```
 
 ```{r}
@@ -106,13 +107,15 @@ grid |>
   ggplot2::ggplot() +
   ggplot2::geom_rect(
     ggplot2::aes(xmin = left, xmax = right, ymin = bottom, ymax = top),
-    col = "black", alpha = 0.1, fill = NA
+    col = "black",
+    alpha = 0.1,
+    fill = NA
   ) +
   ggplot2::geom_point(
     ggplot2::aes(X, Y, col = jeffery_side),
     data = jeffrey
-  ) + 
-    harrypotter::scale_colour_hp_d("Ravenclaw")
+  ) +
+  harrypotter::scale_colour_hp_d("Ravenclaw")
 ```
 
 
@@ -121,45 +124,47 @@ grid |>
 ```{r}
 #| fig-cap: Proportion of time in each grid
 #| label: fig-prop-left
-cassowary_grid |> 
-  filter(zone == "left") |> 
-  count(grid, cassowary) |> 
+cassowary_grid |>
+  filter(zone == "left") |>
+  count(grid, cassowary) |>
   mutate(
-    N = sum(n), .by = cassowary, 
-  ) |> mutate(
-    p = n / N, 
+    N = sum(n),
+    .by = cassowary,
+  ) |>
+  mutate(
+    p = n / N,
     grid = factor(
-      grid, 
-      levels = c(13, 14, 15, 16, 9, 10, 11, 12, 
-    5, 6, 7, 8, 1, 2, 3, 4)
+      grid,
+      levels = c(13, 14, 15, 16, 9, 10, 11, 12, 5, 6, 7, 8, 1, 2, 3, 4)
     )
-  ) |> 
-    ggplot(aes(cassowary, p, fill = cassowary)) + 
-    geom_col() + 
-    facet_wrap(~grid, ncol = 2) + 
-    harrypotter::scale_fill_hp_d("Ravenclaw")
+  ) |>
+  ggplot(aes(cassowary, p, fill = cassowary)) +
+  geom_col() +
+  facet_wrap(~grid, ncol = 2) +
+  harrypotter::scale_fill_hp_d("Ravenclaw")
 ```
 
 ```{r}
 #| fig-cap: Proportion of time in each grid
 #| label: fig-prop-right
-cassowary_grid |> 
-  filter(zone == "right") |> 
-  count(grid, cassowary) |> 
+cassowary_grid |>
+  filter(zone == "right") |>
+  count(grid, cassowary) |>
   mutate(
-    N = sum(n), .by = cassowary, 
-  ) |> mutate(
-    p = n / N, 
+    N = sum(n),
+    .by = cassowary,
+  ) |>
+  mutate(
+    p = n / N,
     grid = factor(
-      grid, 
-      levels = c(13, 14, 15, 16, 9, 10, 11, 12, 
-    5, 6, 7, 8, 1, 2, 3, 4)
+      grid,
+      levels = c(13, 14, 15, 16, 9, 10, 11, 12, 5, 6, 7, 8, 1, 2, 3, 4)
     )
-  ) |> 
-    ggplot(aes(cassowary, p, fill = cassowary)) + 
-    geom_col() + 
-    facet_wrap(~grid, ncol = 2) + 
-    harrypotter::scale_fill_hp_d("Ravenclaw")
+  ) |>
+  ggplot(aes(cassowary, p, fill = cassowary)) +
+  geom_col() +
+  facet_wrap(~grid, ncol = 2) +
+  harrypotter::scale_fill_hp_d("Ravenclaw")
 ```
 
 # Diversity measures
@@ -169,10 +174,10 @@ We see that Martina utilises more of the grid than Jeffrey (@tbl-ent)
 ```{r}
 #| tbl-cap: Entropy for each cassowary
 #| label: tbl-ent
-cassowary_grid |> 
-  group_by(cassowary) |> 
-  summarise(entropy = calc_entropy(grid)) |> 
-  gt() |> 
+cassowary_grid |>
+  group_by(cassowary) |>
+  summarise(entropy = calc_entropy(grid)) |>
+  gt() |>
   fmt_number(decimals = 4)
 ```
 
@@ -181,19 +186,19 @@ cassowary_grid |>
 ```{r}
 #| fig-cap: Behaviour entropy
 #| label: fig-b-ent
-cassowary_grid |> 
-  group_by(cassowary, behaviour) |> 
-  summarise(entropy = calc_entropy(grid)) |> 
-  filter(entropy > 0) |> 
-  group_by(behaviour) |> 
-  mutate(m = max(entropy)) |> 
-  ungroup() |> 
+cassowary_grid |>
+  group_by(cassowary, behaviour) |>
+  summarise(entropy = calc_entropy(grid)) |>
+  filter(entropy > 0) |>
+  group_by(behaviour) |>
+  mutate(m = max(entropy)) |>
+  ungroup() |>
   mutate(
     behaviour = fct_reorder(behaviour, m)
-  ) |> 
-  ggplot(aes(entropy, behaviour, fill = cassowary)) + 
-  geom_col(position = "dodge") + 
-  harrypotter::scale_fill_hp_d("Ravenclaw") + 
+  ) |>
+  ggplot(aes(entropy, behaviour, fill = cassowary)) +
+  geom_col(position = "dodge") +
+  harrypotter::scale_fill_hp_d("Ravenclaw") +
   labs(x = "Entropy", y = NULL)
 ```
 

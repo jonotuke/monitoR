@@ -2,7 +2,6 @@ utils::globalVariables(
   c("skink", ".data")
 )
 emuApp <- function() {
-  # data(skink)
   ui <- shiny::fluidPage(
     shiny::titlePanel("EMU app"),
 
@@ -10,6 +9,13 @@ emuApp <- function() {
       shiny::sidebarPanel(
         shiny::fileInput("zoo_file", "Upload ZooMonitor data"),
         shiny::numericInput("sheet", "Sheet number", value = 1),
+        shiny::selectizeInput(
+          inputId = "beh_col",
+          label = "Behaviour column",
+          choices = c("none", colnames(skink_raw)),
+          selected = "none",
+          multiple = FALSE
+        ),
         shiny::hr(),
         shiny::sliderInput("grid_x", "Grid cols", min = 1, max = 10, value = 4),
         shiny::sliderInput("grid_y", "Grid rows", min = 1, max = 10, value = 4),
@@ -80,6 +86,36 @@ emuApp <- function() {
         selected = unique(zoo()$behaviour)
       )
     })
+    shiny::observeEvent(input$zoo_file, {
+      shiny::updateSelectizeInput(
+        inputId = "date_col",
+        choices = colnames(zoo_data()),
+        selected = "DateTime"
+      )
+    })
+    shiny::observeEvent(input$zoo_file, {
+      shiny::updateSelectizeInput(
+        inputId = "x_col",
+        choices = colnames(zoo_data()),
+        selected = colnames(zoo_data()) |>
+          purrr::keep(\(x) str_detect(x, "Coordinate X$"))
+      )
+    })
+    shiny::observeEvent(input$zoo_file, {
+      shiny::updateSelectizeInput(
+        inputId = "y_col",
+        choices = colnames(zoo_data()),
+        selected = colnames(zoo_data()) |>
+          purrr::keep(\(x) str_detect(x, "Coordinate Y$"))
+      )
+    })
+    shiny::observeEvent(input$zoo_file, {
+      shiny::updateSelectizeInput(
+        inputId = "beh_col",
+        choices = c("none", colnames(zoo_data())),
+        selected = "none"
+      )
+    })
     ## PLOTS ----
     output$grid_plot <- shiny::renderPlot({
       plot_grid(
@@ -143,14 +179,23 @@ emuApp <- function() {
         shiny::validate("Invalid file; Please upload a .xlsx file")
       )
     })
-    zoo <- shiny::reactive({
+    zoo_data <- shiny::reactive({
       tryCatch(
         {
           file_zoo()
         },
         shiny.silent.error = function(e) {
-          skink
+          skink_raw
         }
+      )
+    })
+    zoo_cols <- shiny::reactive({
+      colnames(zoo_data())
+    })
+    zoo <- shiny::reactive({
+      clean_zoo(
+        zoo_data(),
+        input$beh_col
       )
     })
     zoo_grid <- shiny::reactive({
@@ -162,26 +207,13 @@ emuApp <- function() {
     })
     # DEBUG ----
     output$debug <- shiny::renderPrint({
-      print(stringr::str_glue("input$zone: {input$zone}"))
-      print(stringr::str_glue("input$grid: {input$grid}"))
-      print(stringr::str_glue("input$n_zones: {input$n_zones}"))
-      print(stringr::str_glue("input$entropy_calc: {input$entropy_calc}"))
-      cat("grid\n")
-      print(grid$df)
-      cat("Plot click\n")
-      print(input$plot_click$x)
-      cat("zoo_grid()\n")
-      print(length(unique(grid$df$zone)))
-      print(zoo_grid())
-      cat("zoo\n")
+      print(zoo_data())
       print(zoo())
-      cat("zoo_grid_filter()\n")
-      print(zoo_grid_filter())
     })
   }
 
   # DRIVER ----
   shiny::shinyApp(ui = ui, server = server)
 }
-# pacman::p_load(conflicted, tidyverse, targets)
-# emuApp() |> print()
+pacman::p_load(conflicted, tidyverse, targets)
+emuApp() |> print()
