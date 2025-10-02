@@ -79,7 +79,7 @@ emuApp <- function() {
   # SERVER ----
   server <- function(input, output, session) {
     ## UI ----
-    shiny::observeEvent(input$zoo_file, {
+    shiny::observeEvent(zoo(), {
       shiny::updateCheckboxGroupInput(
         inputId = "behaviour",
         choices = unique(zoo()$behaviour),
@@ -215,5 +215,5 @@ emuApp <- function() {
   # DRIVER ----
   shiny::shinyApp(ui = ui, server = server)
 }
-pacman::p_load(conflicted, tidyverse, targets)
-emuApp() |> print()
+# pacman::p_load(conflicted, tidyverse, targets)
+# emuApp() |> print()
